@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "title": "LMS UNINDRA Mobile",
+    "description": "Bikin app mobile buat akses LMS UNINDRA, soalnya ribet banget kalo buka dari browser HP. Jadi sekarang bisa langsung cek materi, tugas, sama pengumuman dari HP kapan aja.",
+    "image": "public/images/project-lmsunindra.png",
+    "link": "https://github.com/TobyG74/LMSUnindraMobile",
+    "tags": ["Mobile App", "Flutter", "Education"]
+  },
+  {
+    "id": 2,
+    "title": "RE:KBBI",
+    "description": "A modern, lightweight offline Indonesian dictionary based on KBBI, designed for fast and reliable word lookup.",
+    "image": "public/images/project-rekbbi.png",
+    "link": "https://github.com/univzy/kbbi",
+    "tags": ["Dictionary", "Offline", "KBBI"]
+  },
+  {
+    "id": 3,
+    "title": "Torikomi",
+    "description": "A multi-platform media downloader powered by a plugin-based extension system.",
+    "image": "public/images/project-torikomi.png",
+    "link": "https://github.com/univzy/torikomi",
+    "tags": ["Downloader", "Multi-platform", "Plugin System"]
+  },
+  {
+    "id": 4,
+    "title": "Cek Tagihan Listrik",
+    "description": "Web app simpel buat ngecek tagihan listrik. Daripada ribet buka website PLN yang lemot, mending pake ini aja. Tinggal masukin ID pelanggan, langsung keluar deh tagihan nya.",
+    "image": "public/images/project-cektagihanlistrik.png",
+    "link": "https://cektagihanlistrik.vercel.app",
+    "tags": ["Web App", "JavaScript", "API"]
+  },
+  {
+    "id": 5,
+    "title": "ChisatoBOT",
+    "description": "Bot WhatsApp yang gw bikin pake Baileys, ada banyak fitur seru kayak download media, sticker maker, sampai AI chat. Cocok buat nemenin di grup WA yang rame.",
+    "image": "public/images/project-chisatobot.png",
+    "link": "https://github.com/TobyG74/ChisatoBOT",
+    "tags": ["WhatsApp Bot", "Baileys", "Node.js"]
+  },
+  {
+    "id": 6,
+    "title": "Stumble Guys Exploit",
+    "description": "Iseng-iseng bikin tool hack buat game Stumble Guys, bisa naik rank instan gitu. Cuma buat belajar aja ya gimana cara kerja game mechanics sama security nya.",
+    "image": "public/images/project-stumbleexploit.png",
+    "link": "https://github.com/TobyG74/StumbleGuys-Exploit",
+    "tags": ["Game Hack", "Exploit", "Security"]
+  },
+  {
+    "id": 7,
+    "title": "BotToby",
+    "description": "Bot LINE yang gw bikin dulu waktu masih sering pake LINE. Ada macem-macem fitur buat chat sama hiburan, lumayan buat ngeramaiin grup.",
+    "image": "public/images/project-bottoby.png",
+    "link": "https://github.com/TobyG74/BotToby",
+    "tags": ["LINE Bot", "Messenger", "Automation"]
+  },
+  {
+    "id": 8,
+    "title": "TikTok API Downloader",
+    "description": "API buat download video TikTok tanpa watermark, bisa cari user, ambil video, audio, foto, semuanya. Paling sering dipake sama developer lain buat bikin bot atau web downloader.",
+    "image": "public/images/project-tiktokapidl.png",
+    "link": "https://github.com/TobyG74/tiktok-api-dl",
+    "tags": ["API", "TikTok", "Downloader"]
+  },
+  {
+    "id": 9,
+    "title": "Twitter/X Downloader",
+    "description": "Tool simpel buat download video dari Twitter/X. Kadang kan suka nemu video menarik di timeline, nah pake ini bisa langsung download dengan berbagai kualitas.",
+    "image": "public/images/project-twitterdownloader.png",
+    "link": "https://github.com/TobyG74/twitter-downloader",
+    "tags": ["Twitter/X", "Downloader", "Media"]
+  },
+  {
+    "id": 10,
+    "title": "UNINDRA",
+    "description": "Kumpulin semua materi kuliah sama latihan soal dari kampus gw di UNINDRA Teknik Informatika. Lumayan buat temen-temen yang mau belajar atau nyari referensi tugas.",
+    "image": "public/images/project-unindra.png",
+    "link": "https://github.com/TobyG74/UNINDRA",
+    "tags": ["Education", "Learning", "Resources"]
+  }
+]

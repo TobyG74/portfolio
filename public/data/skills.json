@@ -1,0 +1,89 @@
+{
+  "title": "Tech Stack & Tools",
+  "categories": [
+    {
+      "id": "programming-languages",
+      "label": "Programming Languages",
+      "icon": "fa-solid fa-code",
+      "items": [
+        { "name": "JavaScript", "icon": "fa-brands fa-js" },
+        { "name": "TypeScript", "icon": "fa-solid fa-code" },
+        { "name": "Python", "icon": "fa-brands fa-python" },
+        { "name": "Go", "icon": "fa-solid fa-code" },
+        { "name": "C++", "icon": "fa-solid fa-code" },
+        { "name": "Java", "icon": "fa-brands fa-java" },
+        { "name": "Pascal", "icon": "fa-solid fa-code" },
+        { "name": "Dart", "icon": "fa-solid fa-code" },
+        { "name": "Nim", "icon": "fa-solid fa-code" }
+      ]
+    },
+    {
+      "id": "web-development",
+      "label": "Web Development",
+      "icon": "fa-solid fa-globe",
+      "items": [
+        { "name": "HTML5", "icon": "fa-brands fa-html5" },
+        { "name": "CSS3", "icon": "fa-brands fa-css3-alt" },
+        { "name": "React", "icon": "fa-brands fa-react" },
+        { "name": "Next.js", "icon": "fa-solid fa-layer-group" },
+        { "name": "Node.js", "icon": "fa-brands fa-node-js" },
+        { "name": "Bootstrap", "icon": "fa-brands fa-bootstrap" },
+        { "name": "Tailwind CSS", "icon": "fa-solid fa-wind" }
+      ]
+    },
+    {
+      "id": "mobile-development",
+      "label": "Mobile Development",
+      "icon": "fa-solid fa-mobile-screen-button",
+      "items": [
+        { "name": "Flutter", "icon": "fa-solid fa-mobile-screen-button" },
+        { "name": "React Native", "icon": "fa-brands fa-react" }
+      ]
+    },
+    {
+      "id": "databases",
+      "label": "Databases",
+      "icon": "fa-solid fa-database",
+      "items": [
+        { "name": "MongoDB", "icon": "fa-solid fa-database" },
+        { "name": "SQLite", "icon": "fa-solid fa-database" },
+        { "name": "MySQL", "icon": "fa-solid fa-database" },
+        { "name": "PostgreSQL", "icon": "fa-solid fa-database" }
+      ]
+    },
+    {
+      "id": "tools-platforms",
+      "label": "Tools & Platforms",
+      "icon": "fa-solid fa-screwdriver-wrench",
+      "items": [
+        { "name": "Git", "icon": "fa-brands fa-git-alt" },
+        { "name": "GitHub", "icon": "fa-brands fa-github" },
+        { "name": "NPM", "icon": "fa-brands fa-npm" },
+        { "name": "Docker", "icon": "fa-brands fa-docker" },
+        { "name": "Nodemon", "icon": "fa-solid fa-terminal" },
+        { "name": "PM2", "icon": "fa-solid fa-server" },
+        { "name": "Prisma", "icon": "fa-solid fa-cubes" }
+      ]
+    },
+    {
+      "id": "editors-ides",
+      "label": "Code Editors & IDEs",
+      "icon": "fa-solid fa-laptop-code",
+      "items": [
+        { "name": "JetBrains", "icon": "fa-solid fa-laptop-code" },
+        { "name": "Sublime", "icon": "fa-solid fa-file-code" },
+        { "name": "VS Code", "icon": "fa-solid fa-code" },
+        { "name": "Android Studio", "icon": "fa-brands fa-android" }
+      ]
+    },
+    {
+      "id": "operating-systems",
+      "label": "Operating Systems",
+      "icon": "fa-solid fa-desktop",
+      "items": [
+        { "name": "Windows", "icon": "fa-brands fa-windows" },
+        { "name": "Arch Linux", "icon": "fa-brands fa-linux" }
+      ]
+    }
+  ]
+}
