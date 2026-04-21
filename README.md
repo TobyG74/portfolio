@@ -45,6 +45,12 @@
 - Smart deduplication via `localStorage` — each unique visitor counted only once
 - Graceful fallback when KV is unavailable (dev/preview mode)
 
+### 📖 Guestbook (Impressions)
+- Visitors can submit a name (or stay **Anonymous**) and leave a message
+- Stored in **Cloudflare KV** via `/api/impressions`
+- **One message per IP** is enforced using KV key `impression_ip:<ip>`
+- Message feed is rendered in reverse chronological order with relative timestamps
+
 ### 🎨 Visual Design
 - **Pixel & retro fonts** for that old-school RPG terminal feel
 - **Custom color palette**: deep navy backgrounds (`#060816`), golden glow (`#f4c95d`), teal accent (`#5dd9c1`)
@@ -58,6 +64,7 @@
 | `/` | Hero section with profile photo, typed role animation, XP bar |
 | `/projects` | Equal-height project cards grid with tags and live links |
 | `/skills` | Categorized tech stack (languages, frameworks, tools, DBs) |
+| `/impressions` | Guestbook page for user impressions/messages |
 | `/contact` | Contact form + social links (GitHub, LinkedIn, Instagram, Email) |
 
 ---
@@ -70,7 +77,7 @@
 | **UI** | React 19, Tailwind CSS 3.4 |
 | **Icons** | Lucide React, Font Awesome 7 |
 | **Deployment** | Cloudflare Workers (via `@opennextjs/cloudflare`) |
-| **Persistence** | Cloudflare KV (visitor counter) |
+| **Persistence** | Cloudflare KV (visitor counter + guestbook) |
 | **CLI** | Wrangler 4.8 |
 | **Language** | JavaScript (JSX) |
 
@@ -86,9 +93,12 @@ tobyg74.github.io/
 │   ├── globals.css           # Global styles + CRT/scanline effects
 │   ├── projects/page.jsx     # Projects grid
 │   ├── skills/page.jsx       # Skills & tech stack
+│   ├── impressions/page.jsx  # Guestbook UI + message list
 │   ├── contact/page.jsx      # Contact form + socials
 │   └── api/visitors/
 │       └── route.js          # Visitor counter API (Cloudflare KV)
+│   └── api/impressions/
+│       └── route.js          # Guestbook API (Cloudflare KV + IP limit)
 ├── components/
 │   ├── site-shell.jsx        # Global layout: navbar, visitor counter, XP bar
 │   ├── game-provider.jsx     # React context for RPG game state
@@ -153,7 +163,7 @@ npm run deploy
 
 This runs `opennextjs-cloudflare build && wrangler deploy` — builds the Next.js app, adapts it for the Workers runtime, and uploads to Cloudflare's edge network.
 
-### Cloudflare KV Setup (for visitor counter)
+### Cloudflare KV Setup (visitor counter + guestbook)
 
 1. Create a KV namespace in the [Cloudflare Dashboard](https://dash.cloudflare.com) or via CLI:
    ```bash
@@ -166,6 +176,11 @@ This runs `opennextjs-cloudflare build && wrangler deploy` — builds the Next.j
    ]
    ```
 3. Deploy — the counter will start persisting immediately.
+
+### Guestbook KV Keys
+
+- `impressions` → JSON array of guestbook entries
+- `impression_ip:<ip>` → IP lock key to prevent multiple submissions from the same IP
 
 ---
 
