@@ -1,4 +1,4 @@
-import SiteShell from "@/components/site-shell";
+﻿import SiteShell from "@/components/site-shell";
 import { getSkills } from "@/lib/content";
 import Reveal from "@/components/reveal";
 
@@ -40,19 +40,16 @@ function getFaIcon(name) {
     Windows: "fa-brands fa-windows",
     "Arch Linux": "fa-brands fa-linux",
   };
-
   return map[name] || "fa-solid fa-code";
 }
 
-function getTone(label) {
-  const palette = [
-    "border-cyan-300/40 bg-cyan-500/10 text-cyan-300",
-    "border-amber-300/40 bg-amber-500/10 text-amber-300",
-    "border-emerald-300/40 bg-emerald-500/10 text-emerald-300",
-    "border-fuchsia-300/40 bg-fuchsia-500/10 text-fuchsia-300",
-  ];
-  return palette[label.length % palette.length];
-}
+const CATEGORY_COLORS = [
+  "bg-nb-blue",
+  "bg-nb-yellow",
+  "bg-nb-pink",
+  "bg-nb-green",
+  "bg-nb-gray",
+];
 
 function getCategoryIcon(category) {
   if (category?.icon) return category.icon;
@@ -62,53 +59,49 @@ function getCategoryIcon(category) {
 export default async function SkillsPage() {
   const skillsData = await getSkills();
   const categories = Array.isArray(skillsData)
-    ? [
-        {
-          id: "all-skills",
-          label: "Tech Stack & Tools",
-          items: skillsData,
-        },
-      ]
+    ? [{ id: "all-skills", label: "Tech Stack & Tools", items: skillsData }]
     : skillsData.categories || [];
   const title = Array.isArray(skillsData) ? "WEAPON ARSENAL" : skillsData.title || "WEAPON ARSENAL";
 
   return (
     <SiteShell>
       <Reveal>
-        <section className="mb-8">
-        <h1 className="font-pixel text-lg text-quest-glow md:text-2xl">{title.toUpperCase()}</h1>
-        <p className="mt-2 text-xl text-quest-accent md:text-2xl">My programming powers and tech stack</p>
+        <section className="mb-8 border-4 border-nb-dark bg-nb-blue p-6 shadow-brutal-lg">
+          <h1 className="text-3xl font-black uppercase text-nb-dark md:text-4xl">{title.toUpperCase()}</h1>
+          <div className="mt-1 h-1.5 w-16 bg-nb-dark" />
+          <p className="mt-2 text-lg font-bold text-nb-dark/80">My programming powers and tech stack</p>
         </section>
       </Reveal>
 
-      <section className="grid gap-4">
-        {categories.map((category, index) => (
-          <Reveal key={category.id || category.label} delay={index * 70}>
-            <div className={`hover-panel rounded-xl border p-5 backdrop-blur-sm ${getTone(category.label || String(index))}`}>
-              <div className="flex items-center gap-3">
-                <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-white/20 bg-black/20">
-                  <i className={`${getCategoryIcon(category)} text-xl`} aria-hidden="true" />
-                </span>
-                <h2 className="font-pixel text-[11px] md:text-xs">{category.label}</h2>
-              </div>
-              <div className="mt-3 grid grid-cols-4 gap-2 sm:grid-cols-5 lg:grid-cols-8 xl:grid-cols-10">
-                {(category.items || []).map((item) => (
-                  <div
-                    key={`${category.id}-${item.name}`}
-                    className="group aspect-square rounded-md border border-white/15 bg-black/20 p-1.5 lg:p-1"
-                  >
-                    <div className="flex h-full flex-col items-center justify-center gap-1.5 text-center">
-                      <div className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-white/10 transition group-hover:scale-105 group-hover:bg-white/15 lg:h-8 lg:w-8">
-                        <i className={`${item.icon || getFaIcon(item.name)} text-sm lg:text-xs`} aria-hidden="true" />
-                      </div>
-                      <span className="block text-[16px] leading-tight text-slate-100 lg:text-[20px]">{item.name}</span>
-                    </div>
+      <section className="grid gap-5">
+        {categories.map((category, index) => {
+          const bgColor = CATEGORY_COLORS[index % CATEGORY_COLORS.length];
+          return (
+            <Reveal key={category.id || category.label} delay={index * 70}>
+              <div className={`border-4 border-nb-dark ${bgColor} p-5 shadow-brutal`}>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="flex h-9 w-9 items-center justify-center border-2 border-nb-dark bg-white">
+                    <i className={`${getCategoryIcon(category)} text-lg text-nb-dark`} aria-hidden="true" />
                   </div>
-                ))}
+                  <h2 className="text-lg font-black uppercase text-nb-dark">{category.label}</h2>
+                </div>
+                <div className="grid grid-cols-4 gap-2 sm:grid-cols-5 lg:grid-cols-8 xl:grid-cols-10">
+                  {(category.items || []).map((item) => (
+                    <div
+                      key={`${category.id}-${item.name}`}
+                      className="group aspect-square border-2 border-nb-dark bg-white p-1.5 shadow-brutal-sm transition hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none hover:bg-nb-yellow"
+                    >
+                      <div className="flex h-full flex-col items-center justify-center gap-1 text-center">
+                        <i className={`${item.icon || getFaIcon(item.name)} text-sm text-nb-dark`} aria-hidden="true" />
+                        <span className="block text-[10px] font-bold leading-tight text-nb-dark">{item.name}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
-          </Reveal>
-        ))}
+            </Reveal>
+          );
+        })}
       </section>
     </SiteShell>
   );

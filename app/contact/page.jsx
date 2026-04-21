@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import Link from "next/link";
@@ -13,6 +13,15 @@ const socials = [
   { title: "Email", value: "tobisaputra11@gmail.com", href: "mailto:tobisaputra11@gmail.com" },
 ];
 
+function Field({ label, children }) {
+  return (
+    <div>
+      <label className="mb-1 block text-sm font-black uppercase text-nb-dark">{label}</label>
+      {children}
+    </div>
+  );
+}
+
 export default function ContactPage() {
   const { addXp } = useGame();
   const [form, setForm] = useState({ name: "", email: "", type: "", details: "" });
@@ -20,113 +29,119 @@ export default function ContactPage() {
   return (
     <SiteShell>
       <Reveal>
-        <section className="mb-8">
-        <h1 className="font-pixel text-lg text-quest-glow md:text-2xl">START NEW QUEST</h1>
-        <p className="mt-2 text-xl text-quest-accent md:text-2xl">Send me a message and let&apos;s collaborate!</p>
+        <section className="mb-8 border-4 border-nb-dark bg-nb-pink p-6 shadow-brutal-lg">
+          <h1 className="text-3xl font-black uppercase text-nb-dark md:text-4xl">CONTACT</h1>
+          <div className="mt-1 h-1.5 w-16 bg-nb-dark" />
+          <p className="mt-2 text-lg font-bold text-nb-dark/80">Send me a message and let&apos;s collaborate!</p>
         </section>
       </Reveal>
 
-      <section className="grid gap-4 lg:grid-cols-[1.4fr_1fr]">
+      <section className="grid gap-5 lg:grid-cols-[1.4fr_1fr]">
         <Reveal>
-        <form
-          className="neon-border rounded-xl border border-quest-line bg-quest-card p-5"
-          onSubmit={(event) => {
-            event.preventDefault();
-            addXp(50);
-            alert("QUEST ACCEPTED! Your message has been sent successfully.");
-            setForm({ name: "", email: "", type: "", details: "" });
-          }}
-        >
-          <h2 className="font-pixel text-[11px] text-quest-glow">MESSAGE CONSOLE</h2>
-          <div className="mt-4 space-y-3">
-            <Field label="PLAYER NAME">
-              <input
-                required
-                value={form.name}
-                onChange={(event) => setForm((prev) => ({ ...prev, name: event.target.value }))}
-                className="w-full rounded-md border border-quest-line bg-quest-bg px-3 py-2 text-lg"
-              />
-            </Field>
-            <Field label="EMAIL ADDRESS">
-              <input
-                type="email"
-                required
-                value={form.email}
-                onChange={(event) => setForm((prev) => ({ ...prev, email: event.target.value }))}
-                className="w-full rounded-md border border-quest-line bg-quest-bg px-3 py-2 text-lg"
-              />
-            </Field>
-            <Field label="QUEST TYPE">
-              <select
-                required
-                value={form.type}
-                onChange={(event) => setForm((prev) => ({ ...prev, type: event.target.value }))}
-                className="w-full rounded-md border border-quest-line bg-quest-bg px-3 py-2 text-lg"
+          <form
+            className="border-4 border-nb-dark bg-white p-5 shadow-brutal-lg"
+            onSubmit={(event) => {
+              event.preventDefault();
+              addXp(50);
+              alert("Message sent! I will get back to you soon.");
+              setForm({ name: "", email: "", type: "", details: "" });
+            }}
+          >
+            <h2 className="text-xl font-black uppercase text-nb-dark">SEND A MESSAGE</h2>
+            <div className="mt-1 h-1 w-12 bg-nb-yellow" />
+            <div className="mt-4 space-y-4">
+              <Field label="YOUR NAME">
+                <input
+                  required
+                  value={form.name}
+                  onChange={(event) => setForm((prev) => ({ ...prev, name: event.target.value }))}
+                  className="w-full border-2 border-nb-dark bg-nb-bg px-3 py-2 text-base font-medium text-nb-dark focus:shadow-brutal-sm focus:outline-none"
+                />
+              </Field>
+              <Field label="EMAIL ADDRESS">
+                <input
+                  type="email"
+                  required
+                  value={form.email}
+                  onChange={(event) => setForm((prev) => ({ ...prev, email: event.target.value }))}
+                  className="w-full border-2 border-nb-dark bg-nb-bg px-3 py-2 text-base font-medium text-nb-dark focus:shadow-brutal-sm focus:outline-none"
+                />
+              </Field>
+              <Field label="MESSAGE TYPE">
+                <select
+                  required
+                  value={form.type}
+                  onChange={(event) => setForm((prev) => ({ ...prev, type: event.target.value }))}
+                  className="w-full border-2 border-nb-dark bg-nb-bg px-3 py-2 text-base font-medium text-nb-dark focus:shadow-brutal-sm focus:outline-none"
+                >
+                  <option value="">Select type...</option>
+                  <option value="collaboration">Collaboration</option>
+                  <option value="project">Project Inquiry</option>
+                  <option value="job">Job Opportunity</option>
+                  <option value="question">Question / Support</option>
+                  <option value="other">Other</option>
+                </select>
+              </Field>
+              <Field label="MESSAGE">
+                <textarea
+                  rows={6}
+                  required
+                  value={form.details}
+                  onChange={(event) => setForm((prev) => ({ ...prev, details: event.target.value }))}
+                  className="w-full border-2 border-nb-dark bg-nb-bg px-3 py-2 text-base font-medium text-nb-dark focus:shadow-brutal-sm focus:outline-none"
+                />
+              </Field>
+              <button
+                type="submit"
+                className="w-full border-2 border-nb-dark bg-nb-yellow px-4 py-3 font-black uppercase text-nb-dark shadow-brutal transition hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none"
               >
-                <option value="">Select quest type...</option>
-                <option value="collaboration">Collaboration Quest</option>
-                <option value="project">Project Inquiry</option>
-                <option value="job">Job Opportunity</option>
-                <option value="question">Question/Support</option>
-                <option value="other">Other Quest</option>
-              </select>
-            </Field>
-            <Field label="QUEST DETAILS">
-              <textarea
-                rows={6}
-                required
-                value={form.details}
-                onChange={(event) => setForm((prev) => ({ ...prev, details: event.target.value }))}
-                className="w-full rounded-md border border-quest-line bg-quest-bg px-3 py-2 text-lg"
-              />
-            </Field>
-            <button className="w-full rounded-md border border-quest-glow bg-quest-glow px-4 py-3 font-pixel text-xs text-slate-900 shadow-lg shadow-quest-glow/20 hover:-translate-y-0.5 hover:brightness-110">SEND MESSAGE</button>
-          </div>
-        </form>
+                SEND MESSAGE →
+              </button>
+            </div>
+          </form>
         </Reveal>
 
         <aside className="space-y-4">
           <Reveal delay={120}>
-            <div className="hover-panel rounded-xl border border-quest-line bg-quest-card p-5">
-            <h2 className="font-pixel text-[11px] text-quest-glow">SOCIAL CHANNELS</h2>
-            <div className="mt-3 space-y-2">
-              {socials.map((item) => (
-                <Link
-                  key={item.title}
-                  href={item.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="block rounded-md border border-quest-line bg-quest-bg px-3 py-3 hover:-translate-y-0.5 hover:border-quest-accent"
-                >
-                  <p className="font-pixel text-[10px] text-quest-accent">{item.title}</p>
-                  <p className="text-lg text-slate-200">{item.value}</p>
-                </Link>
-              ))}
-            </div>
+            <div className="border-4 border-nb-dark bg-nb-blue p-5 shadow-brutal">
+              <h2 className="text-xl font-black uppercase text-nb-dark">SOCIALS</h2>
+              <div className="mt-1 h-1 w-12 bg-nb-dark" />
+              <div className="mt-3 space-y-2">
+                {socials.map((item) => (
+                  <Link
+                    key={item.title}
+                    href={item.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center justify-between border-2 border-nb-dark bg-white px-3 py-3 font-medium text-nb-dark shadow-brutal-sm transition hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none hover:bg-nb-yellow"
+                  >
+                    <span className="text-xs font-black uppercase">{item.title}</span>
+                    <span className="text-sm">{item.value}</span>
+                  </Link>
+                ))}
+              </div>
             </div>
           </Reveal>
 
           <Reveal delay={200}>
-            <div className="hover-panel rounded-xl border border-quest-line bg-quest-card p-5">
-            <h2 className="font-pixel text-[11px] text-quest-glow">QUEST INFO</h2>
-            <ul className="mt-3 space-y-2 text-lg text-slate-200">
-              <li>Response Time: Usually within 24 hours</li>
-              <li>Location: Jakarta, Indonesia</li>
-              <li>Availability: Open for projects and collaborations</li>
-            </ul>
+            <div className="border-4 border-nb-dark bg-nb-green p-5 shadow-brutal">
+              <h2 className="text-xl font-black uppercase text-nb-dark">INFO</h2>
+              <div className="mt-1 h-1 w-12 bg-nb-dark" />
+              <ul className="mt-3 space-y-2 text-base text-nb-dark">
+                <li className="border-2 border-nb-dark bg-white px-3 py-2 font-medium">
+                  Response Time: Within 24 hours
+                </li>
+                <li className="border-2 border-nb-dark bg-white px-3 py-2 font-medium">
+                  Location: Jakarta, Indonesia
+                </li>
+                <li className="border-2 border-nb-dark bg-white px-3 py-2 font-medium">
+                  Status: Open for projects
+                </li>
+              </ul>
             </div>
           </Reveal>
         </aside>
       </section>
     </SiteShell>
-  );
-}
-
-function Field({ label, children }) {
-  return (
-    <label className="block">
-      <span className="font-pixel text-[10px] text-quest-accent">{label}</span>
-      <div className="mt-1">{children}</div>
-    </label>
   );
 }

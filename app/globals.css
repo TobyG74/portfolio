@@ -1,4 +1,4 @@
-@tailwind base;
+﻿@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -8,7 +8,7 @@ body {
 }
 
 body {
-  @apply bg-quest-bg text-slate-100 antialiased;
+  @apply bg-nb-bg text-nb-dark antialiased;
 }
 
 a,
@@ -16,421 +16,116 @@ button,
 input,
 textarea,
 select {
-  transition: all 220ms ease;
+  transition: all 180ms ease;
 }
 
-.grid-bg {
-  background-image: linear-gradient(rgba(93, 217, 193, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(93, 217, 193, 0.08) 1px, transparent 1px),
-    radial-gradient(circle at 20% 20%, rgba(244, 201, 93, 0.2), transparent 30%),
-    radial-gradient(circle at 80% 10%, rgba(93, 217, 193, 0.15), transparent 25%);
-  background-size: 40px 40px, 40px 40px, 100% 100%, 100% 100%;
-}
-
-.scanline::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.15) 50%, transparent 100%);
-  background-size: 100% 6px;
-  opacity: 0.25;
-  z-index: 20;
-}
-
-.orb {
-  position: absolute;
-  border-radius: 9999px;
-  background: radial-gradient(circle, rgba(72, 166, 255, 0.28) 0%, rgba(72, 166, 255, 0.14) 28%, rgba(52, 120, 214, 0.08) 52%, transparent 74%);
-  filter: blur(10px);
-  mix-blend-mode: screen;
-  animation-name: drift, breathe;
-  animation-timing-function: ease-in-out, ease-in-out;
-  animation-iteration-count: infinite;
-  animation-play-state: running;
-}
-
-.pixel {
-  position: absolute;
-  border-radius: 9999px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.95), rgba(181, 214, 255, 0.8));
-  box-shadow: 0 0 10px rgba(161, 210, 255, 0.85), 0 0 18px rgba(255, 255, 255, 0.65);
-  animation-name: twinkle;
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: infinite;
-  animation-play-state: running;
-}
-
-.meteor {
-  position: absolute;
-  z-index: 4;
-  width: 180px;
-  height: 4px;
-  border-radius: 9999px;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(167, 224, 255, 0.5), rgba(255, 246, 200, 1));
-  filter: drop-shadow(0 0 10px rgba(175, 224, 255, 0.75));
-  transform: rotate(var(--meteor-rot, 138deg)) scale(0.96);
-  transform-origin: right center;
-  opacity: 0;
-  animation: meteorFly linear infinite;
-}
-
-.meteor::before {
-  content: "";
-  position: absolute;
-  right: -2px;
-  top: 50%;
-  width: 9px;
-  height: 9px;
-  border-radius: 9999px;
-  transform: translateY(-50%);
-  background: radial-gradient(circle, rgba(255, 255, 255, 1), rgba(255, 226, 133, 0.88));
-  box-shadow: 0 0 12px rgba(255, 233, 160, 0.95), 0 0 24px rgba(157, 218, 255, 0.7);
-}
-
-.meteor::after {
-  content: "";
-  position: absolute;
-  right: 2px;
-  top: 50%;
-  width: 80px;
-  height: 8px;
-  transform: translateY(-50%);
-  background: radial-gradient(ellipse at right, rgba(184, 233, 255, 0.55), rgba(184, 233, 255, 0) 65%);
-  filter: blur(2px);
-}
-
+/* ─── Page transition ─── */
 .page-enter {
-  animation: pageEnter 460ms cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  animation: pageEnter 380ms cubic-bezier(0.18, 0.89, 0.32, 1.1);
 }
 
+/* ─── Scroll reveal ─── */
 .reveal {
   opacity: 0;
-  transform: translateY(18px) scale(0.985);
-  transition: opacity 650ms ease, transform 650ms ease;
+  transform: translateY(20px);
+  transition: opacity 500ms ease, transform 500ms ease;
 }
 
 .reveal.is-visible {
   opacity: 1;
-  transform: translateY(0) scale(1);
+  transform: translateY(0);
 }
 
-.hover-panel {
-  transform: translateY(0) scale(1);
-  box-shadow: 0 0 0 rgba(93, 217, 193, 0);
-}
-
-.hover-panel:hover {
-  transform: translateY(-6px) scale(1.01);
-  box-shadow: 0 10px 35px rgba(93, 217, 193, 0.22);
-}
-
-.neon-border {
-  position: relative;
-  overflow: hidden;
-}
-
-.neon-border::before {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  padding: 1px;
-  background: linear-gradient(120deg, rgba(244, 201, 93, 0.7), rgba(93, 217, 193, 0.7), rgba(255, 107, 107, 0.7));
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  animation: borderShift 4s linear infinite;
-  pointer-events: none;
-  opacity: 0.55;
-}
-
+/* ─── Level up toast ─── */
 .level-up-toast {
   position: fixed;
   top: 96px;
   right: 20px;
   z-index: 60;
   width: min(92vw, 340px);
-  border-radius: 14px;
-  border: 1px solid rgba(244, 201, 93, 0.65);
-  background: linear-gradient(145deg, rgba(14, 22, 48, 0.95), rgba(6, 8, 22, 0.95));
-  box-shadow: 0 0 0 1px rgba(93, 217, 193, 0.3), 0 20px 40px rgba(0, 0, 0, 0.45);
-  overflow: hidden;
-  animation: levelToastInOut 3.2s cubic-bezier(0.22, 0.8, 0.25, 1) forwards;
-}
-
-.level-up-toast::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 15% 20%, rgba(244, 201, 93, 0.28), transparent 40%),
-    radial-gradient(circle at 80% 80%, rgba(93, 217, 193, 0.22), transparent 45%);
-  pointer-events: none;
+  border: 4px solid #1a1a1a;
+  background: #ffe500;
+  box-shadow: 6px 6px 0px 0px #1a1a1a;
+  animation: levelToastInOut 3.2s ease forwards;
 }
 
 .level-up-toast-inner {
-  position: relative;
-  padding: 14px 16px;
-}
-
-@keyframes drift {
-  0%,
-  100% {
-    transform: translateY(0px) translateX(0px) scale(0.96);
-  }
-  50% {
-    transform: translateY(-42px) translateX(18px) scale(1.04);
-  }
-}
-
-@keyframes breathe {
-  0%,
-  100% {
-    opacity: 0.45;
-  }
-  50% {
-    opacity: 0.82;
-  }
-}
-
-@keyframes twinkle {
-  0%,
-  100% {
-    opacity: 0.2;
-    transform: scale(0.85);
-  }
-  35% {
-    opacity: 0.95;
-    transform: scale(1.45);
-  }
-  65% {
-    opacity: 0.5;
-    transform: scale(1.08);
-  }
-}
-
-@keyframes meteorFly {
-  0% {
-    transform: translateX(0) translateY(0) rotate(var(--meteor-rot, 138deg)) scale(0.9);
-    opacity: 0;
-  }
-  3% {
-    opacity: 1;
-  }
-  76% {
-    opacity: 1;
-  }
-  92% {
-    opacity: 0.45;
-  }
-  100% {
-    opacity: 0;
-    transform: translateX(var(--meteor-dx, -125vw)) translateY(var(--meteor-dy, 96vh)) rotate(var(--meteor-rot, 138deg)) scale(1.02);
-  }
-}
-
-@keyframes pageEnter {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes borderShift {
-  from {
-    filter: hue-rotate(0deg);
-  }
-  to {
-    filter: hue-rotate(360deg);
-  }
-}
-
-@keyframes levelToastInOut {
-  0% {
-    opacity: 0;
-    transform: translateX(120%) scale(0.96);
-  }
-  10% {
-    opacity: 1;
-    transform: translateX(0) scale(1);
-  }
-  78% {
-    opacity: 1;
-    transform: translateX(0) scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: translateX(16%) scale(0.98);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .orb,
-  .pixel {
-    animation-duration: 28s !important;
-  }
-
-  .meteor {
-    animation-duration: 2.2s !important;
-  }
-
-  .page-enter,
-  .reveal,
-  .hover-panel,
-  .neon-border::before {
-    transition-duration: 120ms !important;
-  }
-
-  .level-up-toast {
-    animation-duration: 4s !important;
-  }
+  padding: 16px 20px;
 }
 
 /* ═══════════════════════════════════════════
-   QUEST INTRO – cinematic onboarding
+   INTRO - Neo Brutalism onboarding
 ═══════════════════════════════════════════ */
 
-.quest-intro-root {
+.nb-intro-root {
   position: relative;
   min-height: 100vh;
-  overflow: hidden;
-  background: radial-gradient(ellipse at 20% 10%, rgba(93, 217, 193, 0.08) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 90%, rgba(244, 201, 93, 0.07) 0%, transparent 50%),
-    #060816;
+  overflow-y: auto;
+  background: #fffbf0;
 }
 
-/* ─── Floating particles background ─── */
-.quest-bg-particles {
+/* ─── Decorative dots background ─── */
+.nb-bg-dots {
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 0;
+  background-image: radial-gradient(#1a1a1a 1.5px, transparent 1.5px);
+  background-size: 28px 28px;
+  opacity: 0.07;
 }
 
-.quest-particle {
-  position: absolute;
-  width: 3px;
-  height: 3px;
-  border-radius: 9999px;
-  background: radial-gradient(circle, rgba(93, 217, 193, 0.9), rgba(244, 201, 93, 0.4));
-  box-shadow: 0 0 8px rgba(93, 217, 193, 0.6);
-  animation: questParticleFloat ease-in-out infinite alternate;
-  opacity: 0.5;
-}
-
-@keyframes questParticleFloat {
-  0% { transform: translateY(0px) translateX(0px) scale(0.8); opacity: 0.3; }
-  50% { opacity: 0.8; }
-  100% { transform: translateY(-30px) translateX(12px) scale(1.2); opacity: 0.2; }
-}
-
-/* ─── Scene wrapper card ─── */
-.quest-scene {
+/* ─── Scene wrapper ─── */
+.nb-scene {
   position: relative;
   z-index: 10;
-  padding-top: 52px; /* room for progress bar */
-}
-
-.quest-scene-card {
-  background: linear-gradient(145deg, rgba(14, 22, 48, 0.97), rgba(6, 8, 22, 0.97));
-  border: 1px solid rgba(28, 44, 85, 0.9);
-  border-radius: 20px;
-  padding: 2rem;
-  box-shadow:
-    0 0 0 1px rgba(93, 217, 193, 0.08),
-    0 25px 60px rgba(0, 0, 0, 0.55),
-    inset 0 1px 0 rgba(255, 255, 255, 0.04);
-  position: relative;
-  overflow: hidden;
-}
-
-.quest-scene-card::before {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  border-radius: 21px;
-  padding: 1px;
-  background: linear-gradient(
-    135deg,
-    rgba(244, 201, 93, 0.5),
-    rgba(93, 217, 193, 0.4),
-    rgba(107, 114, 255, 0.35),
-    rgba(244, 201, 93, 0.3)
-  );
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  animation: borderShift 5s linear infinite;
-  pointer-events: none;
-}
-
-/* ─── Logo ring ─── */
-.quest-logo-ring {
-  width: 72px;
-  height: 72px;
-  border-radius: 9999px;
-  border: 2px solid rgba(244, 201, 93, 0.6);
+  padding-top: 80px;
   display: flex;
-  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  align-items: flex-start;
   justify-content: center;
-  background: radial-gradient(circle, rgba(244, 201, 93, 0.12), transparent 70%);
-  box-shadow: 0 0 24px rgba(244, 201, 93, 0.25), inset 0 0 16px rgba(244, 201, 93, 0.05);
-  animation: questLogoPulse 3s ease-in-out infinite;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-bottom: 2rem;
 }
 
-@keyframes questLogoPulse {
-  0%, 100% { box-shadow: 0 0 24px rgba(244, 201, 93, 0.25), inset 0 0 16px rgba(244, 201, 93, 0.05); }
-  50% { box-shadow: 0 0 40px rgba(244, 201, 93, 0.45), inset 0 0 24px rgba(244, 201, 93, 0.12); }
-}
-
-.quest-glow-text {
-  text-shadow: 0 0 20px rgba(244, 201, 93, 0.6), 0 0 40px rgba(244, 201, 93, 0.25);
+.nb-scene-card {
+  background: #ffffff;
+  border: 4px solid #1a1a1a;
+  padding: 2rem;
+  box-shadow: 8px 8px 0px 0px #1a1a1a;
+  position: relative;
 }
 
 /* ─── Input ─── */
-.quest-input-wrap {
+.nb-input-wrap {
   position: relative;
 }
 
-.quest-input {
+.nb-input {
   width: 100%;
-  background: rgba(6, 8, 22, 0.8);
-  border: 1px solid rgba(28, 44, 85, 1);
-  border-radius: 12px;
-  padding: 14px 18px;
+  background: #fffbf0;
+  border: 3px solid #1a1a1a;
+  padding: 12px 18px;
   font-size: 1.125rem;
-  color: #f1f5f9;
+  color: #1a1a1a;
   outline: none;
-  transition: border-color 300ms ease, box-shadow 300ms ease;
+  font-family: var(--font-grotesk, sans-serif);
+  font-weight: 500;
+  transition: box-shadow 200ms ease;
 }
 
-.quest-input:focus {
-  border-color: rgba(93, 217, 193, 0.7);
-  box-shadow: 0 0 0 3px rgba(93, 217, 193, 0.12), 0 0 20px rgba(93, 217, 193, 0.1);
+.nb-input:focus {
+  box-shadow: 4px 4px 0px 0px #1a1a1a;
 }
 
-.quest-input-glow {
-  position: absolute;
-  bottom: 0;
-  left: 10%;
-  right: 10%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(93, 217, 193, 0.6), transparent);
-  border-radius: 9999px;
-  opacity: 0;
-  transition: opacity 300ms;
-}
-
-.quest-input:focus + .quest-input-glow {
-  opacity: 1;
+.nb-input::placeholder {
+  color: rgba(26, 26, 26, 0.5);
 }
 
 /* ─── Shake animation ─── */
-.quest-shake {
+.nb-shake {
   animation: questShake 500ms cubic-bezier(0.36, 0.07, 0.19, 0.97) forwards;
 }
 
@@ -443,145 +138,140 @@ select {
 }
 
 /* ─── Primary button ─── */
-.quest-btn-primary {
+.nb-btn-primary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 12px 24px;
-  border-radius: 10px;
-  border: 1px solid rgba(244, 201, 93, 0.8);
-  background: linear-gradient(135deg, rgba(244, 201, 93, 0.9), rgba(244, 201, 93, 0.7));
-  color: #0a0e1a;
-  font-family: var(--font-pixel, monospace);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
+  padding: 12px 28px;
+  border: 3px solid #1a1a1a;
+  background: #ffe500;
+  color: #1a1a1a;
+  font-family: var(--font-grotesk, sans-serif);
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
   cursor: pointer;
-  transition: all 260ms ease;
-  box-shadow: 0 4px 20px rgba(244, 201, 93, 0.25);
+  transition: all 120ms ease;
+  box-shadow: 4px 4px 0px 0px #1a1a1a;
 }
 
-.quest-btn-primary:hover {
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 8px 30px rgba(244, 201, 93, 0.4);
-  filter: brightness(1.1);
+.nb-btn-primary:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px 0px #1a1a1a;
 }
 
-.quest-btn-primary:active {
-  transform: translateY(0) scale(0.98);
+.nb-btn-primary:active {
+  transform: translate(4px, 4px);
+  box-shadow: none;
 }
 
 /* ─── Finish button ─── */
-.quest-btn-finish {
+.nb-btn-finish {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
   padding: 14px 32px;
-  border-radius: 12px;
-  border: 2px solid rgba(93, 217, 193, 0.7);
-  background: linear-gradient(135deg, rgba(93, 217, 193, 0.15), rgba(93, 217, 193, 0.05));
-  color: #5dd9c1;
-  font-family: var(--font-pixel, monospace);
-  font-size: 11px;
-  letter-spacing: 0.15em;
+  border: 3px solid #1a1a1a;
+  background: #3dff93;
+  color: #1a1a1a;
+  font-family: var(--font-grotesk, sans-serif);
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   cursor: pointer;
-  transition: all 300ms ease;
-  box-shadow: 0 0 20px rgba(93, 217, 193, 0.15);
-  animation: questFinishPulse 2.5s ease-in-out infinite;
+  transition: all 120ms ease;
+  box-shadow: 4px 4px 0px 0px #1a1a1a;
 }
 
-@keyframes questFinishPulse {
-  0%, 100% { box-shadow: 0 0 20px rgba(93, 217, 193, 0.15); }
-  50% { box-shadow: 0 0 40px rgba(93, 217, 193, 0.35), 0 0 80px rgba(93, 217, 193, 0.1); }
+.nb-btn-finish:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px 0px #1a1a1a;
 }
 
-.quest-btn-finish:hover {
-  transform: translateY(-3px) scale(1.03);
-  border-color: rgba(93, 217, 193, 1);
-  box-shadow: 0 8px 40px rgba(93, 217, 193, 0.4);
-  animation: none;
-}
-
-/* ─── Avatar ring ─── */
-.quest-avatar-ring {
-  width: 118px;
-  height: 118px;
-  border-radius: 9999px;
-  padding: 4px;
-  background: linear-gradient(135deg, rgba(244, 201, 93, 0.8), rgba(93, 217, 193, 0.8));
-  box-shadow: 0 0 24px rgba(244, 201, 93, 0.3), 0 0 48px rgba(93, 217, 193, 0.15);
-  animation: questAvatarSpin 8s linear infinite;
-}
-
-@keyframes questAvatarSpin {
-  from { filter: hue-rotate(0deg); }
-  to { filter: hue-rotate(360deg); }
-}
-
-/* ─── Project card ─── */
-.quest-project-card {
-  animation: questCardIn 350ms cubic-bezier(0.22, 0.8, 0.25, 1) forwards;
-}
-
-@keyframes questCardIn {
-  from { opacity: 0.4; transform: translateY(8px) scale(0.98); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
+.nb-btn-finish:active {
+  transform: translate(4px, 4px);
+  box-shadow: none;
 }
 
 /* ─── Skill group ─── */
-.quest-skill-group {
-  background: rgba(14, 22, 48, 0.5);
-  border: 1px solid rgba(28, 44, 85, 0.8);
-  border-radius: 14px;
+.nb-skill-group {
+  background: #ffffff;
+  border: 3px solid #1a1a1a;
   padding: 16px;
+  box-shadow: 3px 3px 0px 0px #1a1a1a;
 }
 
 /* ─── Skill badge ─── */
-.quest-skill-badge {
+.nb-skill-badge {
   display: inline-block;
   padding: 4px 12px;
-  border-radius: 6px;
-  background: rgba(6, 8, 22, 0.8);
-  border: 1px solid rgba(28, 44, 85, 0.9);
-  font-family: var(--font-pixel, monospace);
-  font-size: 9px;
-  color: #94a3b8;
-  transition: all 220ms ease;
-  animation: questBadgeIn 400ms ease forwards;
+  border: 2px solid #1a1a1a;
+  background: #fffbf0;
+  font-family: var(--font-grotesk, sans-serif);
+  font-size: 12px;
+  font-weight: 700;
+  color: #1a1a1a;
+  transition: all 150ms ease;
+  animation: nbBadgeIn 300ms ease forwards;
   opacity: 0;
 }
 
-@keyframes questBadgeIn {
+@keyframes nbBadgeIn {
   from { opacity: 0; transform: scale(0.85); }
   to { opacity: 1; transform: scale(1); }
 }
 
-.quest-skill-badge:hover {
-  border-color: rgba(93, 217, 193, 0.6);
-  color: #5dd9c1;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(93, 217, 193, 0.15);
+.nb-skill-badge:hover {
+  background: #ffe500;
+  transform: translate(-2px, -2px);
+  box-shadow: 2px 2px 0px 0px #1a1a1a;
 }
 
 /* ─── Contact item ─── */
-.quest-contact-item {
+.nb-contact-item {
   display: flex;
   flex-direction: column;
   gap: 4px;
   padding: 14px 16px;
-  border-radius: 12px;
-  border: 1px solid rgba(28, 44, 85, 0.9);
-  background: rgba(14, 22, 48, 0.6);
+  border: 3px solid #1a1a1a;
+  background: #fffbf0;
   text-decoration: none;
-  transition: all 260ms ease;
-  animation: questBadgeIn 400ms ease forwards;
+  transition: all 150ms ease;
+  animation: nbBadgeIn 300ms ease forwards;
   opacity: 0;
+  box-shadow: 3px 3px 0px 0px #1a1a1a;
 }
 
-.quest-contact-item:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-  background: rgba(14, 22, 48, 0.9);
+.nb-contact-item:hover {
+  transform: translate(2px, 2px);
+  box-shadow: none;
+  background: #ffe500;
+}
+
+/* ─── Keyframes ─── */
+@keyframes pageEnter {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes levelToastInOut {
+  0% { opacity: 0; transform: translateX(120%); }
+  10% { opacity: 1; transform: translateX(0); }
+  78% { opacity: 1; transform: translateX(0); }
+  100% { opacity: 0; transform: translateX(16%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-enter,
+  .reveal {
+    transition-duration: 120ms !important;
+  }
+
+  .level-up-toast {
+    animation-duration: 4s !important;
+  }
 }

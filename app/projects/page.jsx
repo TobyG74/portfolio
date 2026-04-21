@@ -1,8 +1,16 @@
-import Image from "next/image";
+﻿import Image from "next/image";
 import Link from "next/link";
 import SiteShell from "@/components/site-shell";
 import { getProjects } from "@/lib/content";
 import Reveal from "@/components/reveal";
+
+const PROJECT_COLORS = [
+  "bg-nb-yellow",
+  "bg-nb-pink",
+  "bg-nb-blue",
+  "bg-nb-green",
+  "bg-nb-gray",
+];
 
 export default async function ProjectsPage() {
   const projects = await getProjects();
@@ -10,41 +18,44 @@ export default async function ProjectsPage() {
   return (
     <SiteShell>
       <Reveal>
-        <section className="mb-8">
-        <h1 className="font-pixel text-lg text-quest-glow md:text-2xl">COMPLETED QUESTS</h1>
-        <p className="mt-2 text-xl text-quest-accent md:text-2xl">Explore my coding adventures and projects</p>
+        <section className="mb-8 border-4 border-nb-dark bg-nb-yellow p-6 shadow-brutal-lg">
+          <h1 className="text-3xl font-black uppercase text-nb-dark md:text-4xl">PROJECTS</h1>
+          <div className="mt-1 h-1.5 w-16 bg-nb-dark" />
+          <p className="mt-2 text-lg font-bold text-nb-dark/80">Explore my coding adventures and projects</p>
         </section>
       </Reveal>
 
       <section className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-        {projects.map((project) => {
+        {projects.map((project, index) => {
           const imagePath = project.image.replace("public", "");
+          const bgColor = PROJECT_COLORS[index % PROJECT_COLORS.length];
           return (
             <Reveal key={project.id} delay={project.id * 60} className="h-full">
-              <article className="hover-panel flex h-full flex-col overflow-hidden rounded-xl border border-quest-line bg-quest-card">
-              <div className="relative h-48 shrink-0 overflow-hidden">
-                <Image src={imagePath} alt={project.title} fill className="object-cover transition duration-700 hover:scale-110" />
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-quest-bg/60 to-transparent" />
-              </div>
-              <div className="flex flex-1 flex-col gap-3 p-4">
-                <h2 className="font-pixel text-[11px] text-quest-glow">{project.title}</h2>
-                <p className="flex-1 text-lg leading-relaxed text-slate-200">{project.description}</p>
-                <div className="flex flex-wrap gap-2">
-                  {project.tags.map((tag) => (
-                    <span key={tag} className="rounded-full border border-quest-line bg-quest-bg px-3 py-1 text-sm text-quest-accent">
-                      {tag}
-                    </span>
-                  ))}
+              <article
+                className={`flex h-full flex-col overflow-hidden border-4 border-nb-dark ${bgColor} shadow-brutal transition hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none`}
+              >
+                <div className="relative h-48 shrink-0 overflow-hidden border-b-4 border-nb-dark">
+                  <Image src={imagePath} alt={project.title} fill className="object-cover" />
                 </div>
-                <Link
-                  href={project.link}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="mt-auto inline-block rounded-md border border-quest-glow bg-quest-glow px-4 py-2 font-pixel text-[10px] text-slate-900 shadow-lg shadow-quest-glow/25 hover:-translate-y-0.5 hover:brightness-110"
-                >
-                  VIEW QUEST
-                </Link>
-              </div>
+                <div className="flex flex-1 flex-col gap-3 p-4">
+                  <h2 className="text-lg font-black uppercase text-nb-dark">{project.title}</h2>
+                  <p className="flex-1 text-base leading-relaxed text-nb-dark/80">{project.description}</p>
+                  <div className="flex flex-wrap gap-2">
+                    {project.tags.map((tag) => (
+                      <span key={tag} className="border-2 border-nb-dark bg-white px-2 py-0.5 text-xs font-bold text-nb-dark">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <Link
+                    href={project.link}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="mt-auto inline-block border-2 border-nb-dark bg-nb-dark px-4 py-2 text-center text-sm font-black uppercase text-white shadow-brutal-sm transition hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none"
+                  >
+                    VIEW PROJECT →
+                  </Link>
+                </div>
               </article>
             </Reveal>
           );

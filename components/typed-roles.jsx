@@ -39,9 +39,9 @@ export default function TypedRoles() {
   }, [charIndex, isDeleting, textIndex]);
 
   return (
-    <span className="text-xl text-quest-accent md:text-2xl">
+    <span className="text-xl font-bold text-nb-dark md:text-2xl">
       {ROLES[textIndex].slice(0, charIndex)}
-      <span className="animate-pulse">|</span>
+      <span className="animate-pulse text-nb-yellow">|</span>
     </span>
   );
 }
