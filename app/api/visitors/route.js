@@ -1,49 +1,28 @@
-﻿import { getCloudflareContext } from "@opennextjs/cloudflare";
-import { NextResponse } from "next/server";
+import { kvGet, kvPut, getClientIp, hashIp } from "@/lib/kv";
+
+export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
 
 const COUNTER_KEY = process.env.VISITOR_COUNTER_KEY || "site_visitors";
-
-async function getKv() {
-  try {
-    const { env } = await getCloudflareContext({ async: true });
-    return env.KV ?? null;
-  } catch {
-    return null;
-  }
-}
+const DEDUPE_TTL = 60 * 60 * 12; // count an IP at most once per 12h
 
 export async function GET(request) {
-  const action = new URL(request.url).searchParams.get("action");
-  const kv = await getKv();
-
-  if (!kv) {
-    return NextResponse.json(
-      { value: 0, persisted: false, source: "fallback", warning: "KV binding not available" },
-      { headers: { "Cache-Control": "no-store" } }
-    );
-  }
-
   try {
-    const raw = await kv.get(COUNTER_KEY);
-    const current = raw !== null ? Math.max(0, parseInt(raw, 10) || 0) : 0;
+    const ip = getClientIp(request);
+    const ipKey = `visitor_ip:${hashIp(ip)}`;
 
-    if (action === "hit") {
-      const next = current + 1;
-      await kv.put(COUNTER_KEY, String(next));
-      return NextResponse.json(
-        { value: next, persisted: true, source: "cloudflare-kv" },
-        { headers: { "Cache-Control": "no-store" } }
-      );
+    let count = parseInt((await kvGet(COUNTER_KEY)) || "0", 10) || 0;
+    const seen = await kvGet(ipKey);
+
+    if (!seen) {
+      count += 1;
+      await kvPut(COUNTER_KEY, String(count));
+      await kvPut(ipKey, "1", { ttl: DEDUPE_TTL });
     }
 
-    return NextResponse.json(
-      { value: current, persisted: true, source: "cloudflare-kv" },
-      { headers: { "Cache-Control": "no-store" } }
-    );
+    return Response.json({ count, counted: !seen });
   } catch (err) {
-    return NextResponse.json(
-      { value: 0, persisted: false, source: "fallback", warning: String(err) },
-      { headers: { "Cache-Control": "no-store" } }
-    );
+    // never break the UI over the counter
+    return Response.json({ count: null, error: String(err.message || err) }, { status: 200 });
   }
 }
