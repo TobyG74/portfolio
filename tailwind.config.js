@@ -7,39 +7,60 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        nb: {
-          bg: "#FFFBF0",
-          card: "#FFFFFF",
-          yellow: "#FFE500",
-          pink: "#FF4DAD",
-          blue: "#4DCDFF",
-          green: "#3DFF93",
-          red: "#FF4444",
-          dark: "#1A1A1A",
-          gray: "#F0EDDE",
+        void: {
+          DEFAULT: "#04060a",
+          800: "#080b12",
+          700: "#0c111c",
+          600: "#121826",
         },
+        aqua: {
+          DEFAULT: "#5ffbf1",
+          dim: "#2fd9cf",
+          deep: "#0a3d3a",
+        },
+        violet: {
+          DEFAULT: "#9d7bff",
+          dim: "#7c5cff",
+        },
+        ghost: "#aeb9d4",
       },
       fontFamily: {
-        sans: ["var(--font-grotesk)", "sans-serif"],
-        mono: ["var(--font-mono)", "monospace"],
-      },
-      boxShadow: {
-        brutal: "4px 4px 0px 0px #1A1A1A",
-        "brutal-sm": "2px 2px 0px 0px #1A1A1A",
-        "brutal-lg": "6px 6px 0px 0px #1A1A1A",
-        "brutal-yellow": "4px 4px 0px 0px #FFE500",
-        "brutal-pink": "4px 4px 0px 0px #FF4DAD",
-        "brutal-blue": "4px 4px 0px 0px #4DCDFF",
-        "brutal-green": "4px 4px 0px 0px #3DFF93",
+        display: ["var(--font-display)", "sans-serif"],
+        body: ["var(--font-sora)", "sans-serif"],
+        mono: ["var(--font-jetbrains)", "monospace"],
       },
       keyframes: {
-        floaty: {
-          "0%, 100%": { transform: "translateY(0px)" },
-          "50%": { transform: "translateY(-8px)" },
+        "grid-pan": {
+          "0%": { backgroundPosition: "0 0" },
+          "100%": { backgroundPosition: "0 -800px" },
+        },
+        "glow-pulse": {
+          "0%, 100%": { opacity: "0.5" },
+          "50%": { opacity: "1" },
+        },
+        flicker: {
+          "0%, 100%": { opacity: "1" },
+          "41%": { opacity: "1" },
+          "42%": { opacity: "0.4" },
+          "43%": { opacity: "1" },
+          "45%": { opacity: "0.7" },
+          "46%": { opacity: "1" },
+        },
+        marquee: {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" },
+        },
+        scan: {
+          "0%": { transform: "translateY(-100%)" },
+          "100%": { transform: "translateY(100%)" },
         },
       },
       animation: {
-        floaty: "floaty 2.8s ease-in-out infinite",
+        "grid-pan": "grid-pan 24s linear infinite",
+        "glow-pulse": "glow-pulse 4s ease-in-out infinite",
+        flicker: "flicker 6s linear infinite",
+        marquee: "marquee 40s linear infinite",
+        scan: "scan 7s linear infinite",
       },
     },
   },
