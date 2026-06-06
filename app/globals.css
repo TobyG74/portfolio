@@ -1,277 +1,111 @@
-﻿@tailwind base;
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-html,
-body {
-  min-height: 100%;
+:root {
+  --aqua: #5ffbf1;
+  --violet: #9d7bff;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
-  @apply bg-nb-bg text-nb-dark antialiased;
-}
-
-a,
-button,
-input,
-textarea,
-select {
-  transition: all 180ms ease;
-}
-
-/* ─── Page transition ─── */
-.page-enter {
-  animation: pageEnter 380ms cubic-bezier(0.18, 0.89, 0.32, 1.1);
-}
-
-/* ─── Scroll reveal ─── */
-.reveal {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 500ms ease, transform 500ms ease;
-}
-
-.reveal.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ─── Level up toast ─── */
-.level-up-toast {
-  position: fixed;
-  top: 96px;
-  right: 20px;
-  z-index: 60;
-  width: min(92vw, 340px);
-  border: 4px solid #1a1a1a;
-  background: #ffe500;
-  box-shadow: 6px 6px 0px 0px #1a1a1a;
-  animation: levelToastInOut 3.2s ease forwards;
-}
-
-.level-up-toast-inner {
-  padding: 16px 20px;
-}
-
-/* ═══════════════════════════════════════════
-   INTRO - Neo Brutalism onboarding
-═══════════════════════════════════════════ */
-
-.nb-intro-root {
   position: relative;
-  min-height: 100vh;
-  overflow-y: auto;
-  background: #fffbf0;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  background-color: #04060a;
+  /* layered atmosphere: two radial glows over deep void */
+  background-image:
+    radial-gradient(60rem 60rem at 78% -10%, rgba(157, 123, 255, 0.16), transparent 60%),
+    radial-gradient(55rem 55rem at 8% 12%, rgba(95, 251, 241, 0.12), transparent 55%);
+  background-attachment: fixed;
 }
 
-/* ─── Decorative dots background ─── */
-.nb-bg-dots {
+/* ---- Fine grain / noise overlay ---- */
+body::after {
+  content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
-  z-index: 0;
-  background-image: radial-gradient(#1a1a1a 1.5px, transparent 1.5px);
-  background-size: 28px 28px;
-  opacity: 0.07;
+  z-index: 60;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* ─── Scene wrapper ─── */
-.nb-scene {
-  position: relative;
-  z-index: 10;
-  padding-top: 80px;
-  display: flex;
-  min-height: 100vh;
-  width: 100%;
-  align-items: flex-start;
-  justify-content: center;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-bottom: 2rem;
+/* ---- Custom scrollbar ---- */
+::-webkit-scrollbar {
+  width: 9px;
+}
+::-webkit-scrollbar-track {
+  background: #04060a;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(#2fd9cf, #7c5cff);
+  border-radius: 99px;
 }
 
-.nb-scene-card {
-  background: #ffffff;
-  border: 4px solid #1a1a1a;
-  padding: 2rem;
-  box-shadow: 8px 8px 0px 0px #1a1a1a;
-  position: relative;
+/* ---- Reusable atoms ---- */
+.glass {
+  background: linear-gradient(150deg, rgba(18, 24, 38, 0.66), rgba(8, 11, 18, 0.5));
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
 
-/* ─── Input ─── */
-.nb-input-wrap {
-  position: relative;
+/* more opaque surface for content that must stay readable over the 3D bg */
+.glass-strong {
+  background: linear-gradient(150deg, rgba(16, 22, 36, 0.94), rgba(7, 10, 17, 0.9));
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
 }
 
-.nb-input {
-  width: 100%;
-  background: #fffbf0;
-  border: 3px solid #1a1a1a;
-  padding: 12px 18px;
-  font-size: 1.125rem;
-  color: #1a1a1a;
-  outline: none;
-  font-family: var(--font-grotesk, sans-serif);
-  font-weight: 500;
-  transition: box-shadow 200ms ease;
+.hairline {
+  border: 1px solid rgba(174, 185, 212, 0.1);
 }
 
-.nb-input:focus {
-  box-shadow: 4px 4px 0px 0px #1a1a1a;
+.text-gradient {
+  background: linear-gradient(110deg, #ffffff 10%, #5ffbf1 45%, #9d7bff 90%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
-.nb-input::placeholder {
-  color: rgba(26, 26, 26, 0.5);
+.glow-aqua {
+  box-shadow: 0 0 0 1px rgba(95, 251, 241, 0.3), 0 0 32px -8px rgba(95, 251, 241, 0.5);
 }
 
-/* ─── Shake animation ─── */
-.nb-shake {
-  animation: questShake 500ms cubic-bezier(0.36, 0.07, 0.19, 0.97) forwards;
-}
-
-@keyframes questShake {
-  10%, 90% { transform: translateX(-3px); }
-  20%, 80% { transform: translateX(5px); }
-  30%, 50%, 70% { transform: translateX(-5px); }
-  40%, 60% { transform: translateX(5px); }
-  100% { transform: translateX(0); }
-}
-
-/* ─── Primary button ─── */
-.nb-btn-primary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 12px 28px;
-  border: 3px solid #1a1a1a;
-  background: #ffe500;
-  color: #1a1a1a;
-  font-family: var(--font-grotesk, sans-serif);
-  font-size: 14px;
-  font-weight: 800;
-  letter-spacing: 0.05em;
+/* eyebrow / mono label */
+.eyebrow {
+  font-family: var(--font-jetbrains), monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.32em;
   text-transform: uppercase;
-  cursor: pointer;
-  transition: all 120ms ease;
-  box-shadow: 4px 4px 0px 0px #1a1a1a;
+  color: #2fd9cf;
 }
 
-.nb-btn-primary:hover {
-  transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0px 0px #1a1a1a;
-}
-
-.nb-btn-primary:active {
-  transform: translate(4px, 4px);
-  box-shadow: none;
-}
-
-/* ─── Finish button ─── */
-.nb-btn-finish {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 14px 32px;
-  border: 3px solid #1a1a1a;
-  background: #3dff93;
-  color: #1a1a1a;
-  font-family: var(--font-grotesk, sans-serif);
-  font-size: 15px;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 120ms ease;
-  box-shadow: 4px 4px 0px 0px #1a1a1a;
-}
-
-.nb-btn-finish:hover {
-  transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0px 0px #1a1a1a;
-}
-
-.nb-btn-finish:active {
-  transform: translate(4px, 4px);
-  box-shadow: none;
-}
-
-/* ─── Skill group ─── */
-.nb-skill-group {
-  background: #ffffff;
-  border: 3px solid #1a1a1a;
-  padding: 16px;
-  box-shadow: 3px 3px 0px 0px #1a1a1a;
-}
-
-/* ─── Skill badge ─── */
-.nb-skill-badge {
-  display: inline-block;
-  padding: 4px 12px;
-  border: 2px solid #1a1a1a;
-  background: #fffbf0;
-  font-family: var(--font-grotesk, sans-serif);
-  font-size: 12px;
-  font-weight: 700;
-  color: #1a1a1a;
-  transition: all 150ms ease;
-  animation: nbBadgeIn 300ms ease forwards;
-  opacity: 0;
-}
-
-@keyframes nbBadgeIn {
-  from { opacity: 0; transform: scale(0.85); }
-  to { opacity: 1; transform: scale(1); }
-}
-
-.nb-skill-badge:hover {
-  background: #ffe500;
-  transform: translate(-2px, -2px);
-  box-shadow: 2px 2px 0px 0px #1a1a1a;
-}
-
-/* ─── Contact item ─── */
-.nb-contact-item {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: 14px 16px;
-  border: 3px solid #1a1a1a;
-  background: #fffbf0;
-  text-decoration: none;
-  transition: all 150ms ease;
-  animation: nbBadgeIn 300ms ease forwards;
-  opacity: 0;
-  box-shadow: 3px 3px 0px 0px #1a1a1a;
-}
-
-.nb-contact-item:hover {
-  transform: translate(2px, 2px);
-  box-shadow: none;
-  background: #ffe500;
-}
-
-/* ─── Keyframes ─── */
-@keyframes pageEnter {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes levelToastInOut {
-  0% { opacity: 0; transform: translateX(120%); }
-  10% { opacity: 1; transform: translateX(0); }
-  78% { opacity: 1; transform: translateX(0); }
-  100% { opacity: 0; transform: translateX(16%); }
+/* moving holographic grid floor */
+.grid-floor {
+  background-image:
+    linear-gradient(rgba(95, 251, 241, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(95, 251, 241, 0.08) 1px, transparent 1px);
+  background-size: 46px 46px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, #000 30%, transparent 75%);
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, #000 30%, transparent 75%);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .page-enter,
-  .reveal {
-    transition-duration: 120ms !important;
-  }
-
-  .level-up-toast {
-    animation-duration: 4s !important;
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
   }
 }
