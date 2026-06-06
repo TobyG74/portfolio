@@ -1,275 +1,138 @@
 <div align="center">
 
-```
- ██████╗ ██████╗ ██████╗ ███████╗     ██████╗ ██╗   ██╗███████╗███████╗████████╗
-██╔════╝██╔═══██╗██╔══██╗██╔════╝    ██╔═══██╗██║   ██║██╔════╝██╔════╝╚══██╔══╝
-██║     ██║   ██║██║  ██║█████╗      ██║   ██║██║   ██║█████╗  ███████╗   ██║   
-██║     ██║   ██║██║  ██║██╔══╝      ██║▄▄ ██║██║   ██║██╔══╝  ╚════██║   ██║   
-╚██████╗╚██████╔╝██████╔╝███████╗    ╚██████╔╝╚██████╔╝███████╗███████║   ██║   
- ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝     ╚══▀▀═╝  ╚═════╝ ╚══════╝╚══════╝   ╚═╝  
-```
+# ⟡ Tobi Saputra — Portfolio
 
-### ⚔️ A Gamified Developer Portfolio — Built on the Edge ⚔️
+### A futuristic, interactive developer portfolio
 
-[![Next.js](https://img.shields.io/badge/Next.js-15.5-black?style=for-the-badge&logo=next.js)](https://nextjs.org)
+[![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)](https://nextjs.org)
 [![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react)](https://react.dev)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com)
-[![Cloudflare Workers](https://img.shields.io/badge/Cloudflare_Workers-Edge-F6821F?style=for-the-badge&logo=cloudflare)](https://workers.cloudflare.com)
-[![Wrangler](https://img.shields.io/badge/Wrangler-4.8-F6821F?style=for-the-badge&logo=cloudflare)](https://developers.cloudflare.com/workers/wrangler)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com)
+[![Three.js](https://img.shields.io/badge/Three.js-r174-000000?style=for-the-badge&logo=three.js)](https://threejs.org)
+[![Cloudflare](https://img.shields.io/badge/Cloudflare-KV-F6821F?style=for-the-badge&logo=cloudflare)](https://developers.cloudflare.com/kv/)
 
-**[🌐 Live Demo](https://tobz-portfolio.tobisaputra11.workers.dev)** · **[📦 Source](https://github.com/TobyG74/tobyg74.github.io)** · **[📬 Contact](https://tobz-portfolio.tobisaputra11.workers.dev/contact)**
+**[🌐 Live](https://itstobz.me)** · **[💻 GitHub](https://github.com/TobyG74)**
 
 </div>
 
 ---
 
-## 🗡️ What is Code Quest?
+## ✨ Overview
 
-**Code Quest** is a fully gamified developer portfolio for **Tobi Saputra** — an RPG-themed, edge-deployed Next.js app where *visitors become players*. Instead of a plain "About Me" page, visitors enter their name, earn XP by exploring pages, and level up as they discover projects and skills.
+A single-page portfolio with a **holographic void** aesthetic: an interactive 3D
+constellation background that reacts to the cursor, a variable-font hero whose
+letters respond to the mouse, a holographic project carousel, and a guestbook +
+visitor counter backed by **Cloudflare KV**.
 
-> *"Turn your portfolio into an adventure."*
+## 🛠 Tech Stack
 
----
+| Layer | Tech |
+|-------|------|
+| Framework | Next.js 15 (App Router) |
+| UI | React 19, Tailwind CSS 3.4 |
+| 3D | Three.js, @react-three/fiber, @react-three/drei |
+| Motion | Framer Motion |
+| Icons | lucide-react |
+| Fonts | Unbounded · Sora · JetBrains Mono (`next/font`) |
+| Persistence | Cloudflare KV (REST API) |
 
-## ✨ Features
-
-### 🎮 RPG Game System
-- **Player onboarding** — visitors enter their name to "Start the Quest"
-- **XP & Level system** — earn XP by visiting pages, hitting the API, and exploring content
-- **Level-up notifications** — animated banner pops up when you reach a new level
-- **Persistent state** — player name, XP, and quest progress saved to `localStorage`
-
-### 🌐 Edge-Powered Visitor Counter
-- Real-time visitor counter backed by **Cloudflare KV** (key-value store)
-- Uses `getCloudflareContext()` from `@opennextjs/cloudflare` — no REST calls, no extra env vars
-- Smart deduplication via `localStorage` — each unique visitor counted only once
-- Graceful fallback when KV is unavailable (dev/preview mode)
-
-### 📖 Guestbook (Impressions)
-- Visitors can submit a name (or stay **Anonymous**) and leave a message
-- Stored in **Cloudflare KV** via `/api/impressions`
-- **One message per IP** is enforced using KV key `impression_ip:<ip>`
-- Message feed is rendered in reverse chronological order with relative timestamps
-
-### 🎨 Visual Design
-- **Pixel & retro fonts** for that old-school RPG terminal feel
-- **Custom color palette**: deep navy backgrounds (`#060816`), golden glow (`#f4c95d`), teal accent (`#5dd9c1`)
-- **CRT scanline overlay** & grid background texture
-- **Neon glow borders** and ambient floating particle effects
-- **Scroll-triggered reveal animations** via IntersectionObserver
-
-### 🖥️ Pages
-| Page | Description |
-|------|-------------|
-| `/` | Hero section with profile photo, typed role animation, XP bar |
-| `/projects` | Equal-height project cards grid with tags and live links |
-| `/skills` | Categorized tech stack (languages, frameworks, tools, DBs) |
-| `/impressions` | Guestbook page for user impressions/messages |
-| `/contact` | Contact form + social links (GitHub, LinkedIn, Instagram, Email) |
-
----
-
-## 🛠️ Tech Stack
-
-| Layer | Technology |
-|-------|-----------|
-| **Framework** | Next.js 15 (App Router) |
-| **UI** | React 19, Tailwind CSS 3.4 |
-| **Icons** | Lucide React, Font Awesome 7 |
-| **Deployment** | Cloudflare Workers (via `@opennextjs/cloudflare`) |
-| **Persistence** | Cloudflare KV (visitor counter + guestbook) |
-| **CLI** | Wrangler 4.8 |
-| **Language** | JavaScript (JSX) |
-
----
-
-## 📁 Project Structure
+## 📁 Structure
 
 ```
-tobyg74.github.io/
-├── app/
-│   ├── page.jsx              # Home / hero page (RPG intro screen)
-│   ├── layout.js             # Root layout with GameProvider
-│   ├── globals.css           # Global styles + CRT/scanline effects
-│   ├── projects/page.jsx     # Projects grid
-│   ├── skills/page.jsx       # Skills & tech stack
-│   ├── impressions/page.jsx  # Guestbook UI + message list
-│   ├── contact/page.jsx      # Contact form + socials
-│   └── api/visitors/
-│       └── route.js          # Visitor counter API (Cloudflare KV)
-│   └── api/impressions/
-│       └── route.js          # Guestbook API (Cloudflare KV + IP limit)
-├── components/
-│   ├── site-shell.jsx        # Global layout: navbar, visitor counter, XP bar
-│   ├── game-provider.jsx     # React context for RPG game state
-│   ├── reveal.jsx            # IntersectionObserver scroll animation
-│   ├── typed-roles.jsx       # Typewriter role animation
-│   └── ambient-effects.jsx   # Floating particles background
-├── lib/
-│   └── content.js            # Data loaders (projects, skills)
-├── public/
-│   ├── data/
-│   │   ├── projects.json     # Project list
-│   │   └── skills.json       # Tech stack categories
-│   └── images/               # Profile photo + project screenshots
-├── wrangler.jsonc             # Cloudflare Workers config + KV binding
-└── tailwind.config.js         # Custom quest color palette + pixel fonts
+app/
+  layout.js              # fonts, metadata, global chrome (3D bg, nav, footer, HUD)
+  page.jsx               # home: About -> Skills -> Projects -> Guestbook -> Contact
+  guestbook/page.jsx     # full guestbook
+  api/visitors/route.js  # visitor counter (KV)
+  api/guestbook/route.js # guestbook list/post (KV + IP anti-spam)
+components/              # Scene3D, CursorFX, Navbar, About, Skills, Projects, ...
+lib/
+  kv.js                  # Cloudflare KV REST helper + IP utilities
+  content.js             # profile, socials, stats + project/skill loaders
+public/                  # data/*.json + images
 ```
 
----
-
-## 🚀 Getting Started
-
-### Prerequisites
-- Node.js 18+
-- A [Cloudflare account](https://dash.cloudflare.com) (for deployment)
-- Wrangler CLI authenticated (`npx wrangler login`)
-
-### Local Development
+## 🧑‍💻 Getting Started
 
 ```bash
-# Clone the repo
-git clone https://github.com/TobyG74/tobyg74.github.io.git
-cd tobyg74.github.io
-
-# Install dependencies
 npm install
-
-# Start dev server
-npm run dev
+npm run dev        # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) and enter the quest.
+Without KV credentials the app falls back to an **in-memory store** (data resets
+on restart) so you can develop offline.
 
-> **Note:** The visitor counter will return `persisted: false` in local dev — this is expected. KV binding is only available in the Cloudflare Workers runtime.
+## 🔑 Environment Variables
 
-### Preview on Cloudflare (local Workers simulation)
+Copy `.env.example` -> `.env.local` and fill in:
 
-```bash
-npm run preview
-```
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `CLOUDFLARE_ACCOUNT_ID` | for KV | Cloudflare account ID |
+| `CLOUDFLARE_KV_NAMESPACE_ID` | for KV | KV namespace ID |
+| `CLOUDFLARE_API_TOKEN` | for KV | Token with **Workers KV Storage: Edit** |
+| `VISITOR_COUNTER_KEY` | optional | Counter key (default `site_visitors`) |
 
----
+> ⚠️ `.env` and `.env*.local` are git-ignored. **Never commit real tokens.**
+
+**Create the KV namespace + token:** Cloudflare dashboard -> *Storage & Databases
+-> KV* -> create namespace (copy its ID). Then *My Profile -> API Tokens* -> create
+a token with the *Workers KV Storage: Edit* permission.
 
 ## ☁️ Deployment
 
-This site deploys to **Cloudflare Workers** using [`@opennextjs/cloudflare`](https://github.com/opennextjs/opennextjs-cloudflare).
+### Vercel (simplest)
+1. Import the repo at [vercel.com/new](https://vercel.com/new).
+2. Add the env vars (Project -> Settings -> Environment Variables).
+3. Deploy. Build command `next build` is auto-detected.
 
-### One-Command Deploy
+### Cloudflare Workers (OpenNext)
+Uses [`@opennextjs/cloudflare`](https://opennext.js.org/cloudflare). Config lives
+in [`wrangler.jsonc`](./wrangler.jsonc) and [`open-next.config.ts`](./open-next.config.ts).
 
 ```bash
-npm run deploy
+# one-time: log in
+npx wrangler login
+
+# set secrets (do NOT hardcode tokens in wrangler.jsonc)
+npx wrangler secret put CLOUDFLARE_ACCOUNT_ID
+npx wrangler secret put CLOUDFLARE_KV_NAMESPACE_ID
+npx wrangler secret put CLOUDFLARE_API_TOKEN
+
+npm run preview    # build + run locally on the Workers runtime
+npm run deploy     # build + deploy to Cloudflare Workers
 ```
 
-This runs `opennextjs-cloudflare build && wrangler deploy` — builds the Next.js app, adapts it for the Workers runtime, and uploads to Cloudflare's edge network.
+For local `npm run preview`, copy `.dev.vars.example` -> `.dev.vars`.
 
-### Cloudflare KV Setup (visitor counter + guestbook)
+### Cloudflare Pages
+Cloudflare now recommends **Workers** (above) for Next.js apps that use Node.js
+runtime route handlers (this project does). If you prefer Pages, see the
+[framework guide](https://developers.cloudflare.com/workers/frameworks/framework-guides/nextjs/);
+note that `@cloudflare/next-on-pages` requires `export const runtime = "edge"` on
+every route, which would need changes to the `app/api/*` handlers.
 
-1. Create a KV namespace in the [Cloudflare Dashboard](https://dash.cloudflare.com) or via CLI:
-   ```bash
-   npx wrangler kv namespace create "KV"
-   ```
-2. Copy the namespace ID into `wrangler.jsonc`:
-   ```jsonc
-   "kv_namespaces": [
-     { "binding": "KV", "id": "YOUR_NAMESPACE_ID" }
-   ]
-   ```
-3. Deploy — the counter will start persisting immediately.
+### Node / Docker / other hosts
+Any Node host works with the standard output:
 
-### Guestbook KV Keys
-
-- `impressions` → JSON array of guestbook entries
-- `impression_ip:<ip>` → IP lock key to prevent multiple submissions from the same IP
-
----
-
-## ⚙️ Configuration
-
-### `wrangler.jsonc`
-
-```jsonc
-{
-  "name": "tobz-portfolio",
-  "main": ".open-next/worker.js",
-  "compatibility_date": "2026-04-17",
-  "compatibility_flags": ["nodejs_compat"],
-  "assets": {
-    "directory": ".open-next/assets",
-    "binding": "ASSETS"
-  },
-  "kv_namespaces": [
-    { "binding": "KV", "id": "<your-kv-namespace-id>" }
-  ]
-}
+```bash
+npm run build
+npm run start      # serves on PORT (default 3000)
 ```
 
-### Environment Variables (optional)
-
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `VISITOR_COUNTER_KEY` | `site_visitors` | KV key used to store the visitor count |
-
----
-
-## 🎯 How the Game Works
-
-```
-┌─────────────────────────────────────────────────┐
-│  VISITOR ARRIVES                                │
-│         ↓                                      │
-│  Enter your name → START QUEST                  │
-│         ↓                                      │
-│  XP earned per action:                         │
-│   • Starting quest    → +20 XP                 │
-│   • Clicking nav link → +10 XP                 │
-│   • Visiting new page → +15 XP                 │
-│         ↓                                      │
-│  Every 100 XP = Level Up 🏆                    │
-│         ↓                                      │
-│  Progress saved to localStorage (persists)     │
-└─────────────────────────────────────────────────┘
-```
-
----
+Set the same environment variables on the host.
 
 ## 📜 Scripts
 
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Start Next.js development server |
-| `npm run build` | Build for production |
-| `npm run deploy` | Build & deploy to Cloudflare Workers |
-| `npm run preview` | Local Cloudflare Workers simulation |
-| `npm run lint` | Run ESLint |
+| Script | Action |
+|--------|--------|
+| `npm run dev` | Start the dev server |
+| `npm run build` | Production build (Next.js) |
+| `npm run start` | Serve the production build (Node) |
+| `npm run lint` | ESLint |
+| `npm run preview` | Build + preview on the Cloudflare Workers runtime |
+| `npm run deploy` | Build + deploy to Cloudflare Workers |
+| `npm run cf-typegen` | Generate Cloudflare env types |
 
----
+## 📝 License
 
-## 👤 Author
-
-<div align="center">
-
-**Tobi Saputra**
-
-[![GitHub](https://img.shields.io/badge/GitHub-TobyG74-181717?style=flat-square&logo=github)](https://github.com/TobyG74)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Tobi_Saputra-0A66C2?style=flat-square&logo=linkedin)](https://www.linkedin.com/in/tobi-saputra/)
-[![Instagram](https://img.shields.io/badge/Instagram-@ini.tobz-E4405F?style=flat-square&logo=instagram)](https://instagram.com/ini.tobz)
-[![Email](https://img.shields.io/badge/Email-tobisaputra11@gmail.com-EA4335?style=flat-square&logo=gmail)](mailto:tobisaputra11@gmail.com)
-
-</div>
-
----
-
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
----
-
-<div align="center">
-
-*Built with ⚔️ and deployed on the edge.*
-
-`[ QUEST COMPLETE ]`
-
-</div>
+Personal project © Tobi Saputra ([@TobyG74](https://github.com/TobyG74)).
