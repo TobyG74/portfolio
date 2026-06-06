@@ -1,0 +1,6 @@
+# Local env for `npm run preview` (Cloudflare Workers via wrangler).
+# Copy to `.dev.vars` and fill in. Same values as your .env / .env.local.
+CLOUDFLARE_ACCOUNT_ID=
+CLOUDFLARE_KV_NAMESPACE_ID=
+CLOUDFLARE_API_TOKEN=
+VISITOR_COUNTER_KEY=site_visitors
