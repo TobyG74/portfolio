@@ -6,6 +6,8 @@
       "label": "Programming Languages",
       "icon": "fa-solid fa-code",
       "items": [
+        { "name": "LUA", "icon": "fa-solid fa-lua" },
+        { "name": "PHP", "icon": "fa-brands fa-php" },
         { "name": "JavaScript", "icon": "fa-brands fa-js" },
         { "name": "TypeScript", "icon": "fa-solid fa-code" },
         { "name": "Python", "icon": "fa-brands fa-python" },

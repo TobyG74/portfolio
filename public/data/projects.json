@@ -70,5 +70,13 @@
     "image": "public/images/project-unindra.png",
     "link": "https://github.com/TobyG74/UNINDRA",
     "tags": ["Education", "Learning", "Resources"]
+  },
+  {
+    "id": 10,
+    "title": "Web2App",
+    "description": "Bikin web app jadi kayak native app di HP, bisa diinstall langsung dari browser. Cocok buat yang pengen bikin PWA atau web app yang lebih user-friendly.",
+    "image": "public/images/project-web2app.png",
+    "link": "https://github.com/TobyG74/Web2App",
+    "tags": ["PWA", "Web App", "Mobile"]
   }
 ]

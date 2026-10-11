@@ -1,22 +1,12 @@
-import { Unbounded, Sora, JetBrains_Mono } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import SceneMount from "@/components/SceneMount";
-import CursorFX from "@/components/CursorFX";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import VisitorCounter from "@/components/VisitorCounter";
 
-// variable font (weight 200–900)
-const display = Unbounded({
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-display",
-  display: "swap",
-});
-
-const sora = Sora({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
-  variable: "--font-sora",
+  variable: "--font-inter",
   display: "swap",
 });
 
@@ -33,12 +23,13 @@ export const metadata = {
   metadataBase: new URL(SITE_URL),
   title: "Tobi Saputra",
   description:
-    "Portfolio futuristik Tobi Saputra (TobyG74) yang membangun bot, API, dan aplikasi multi-platform.",
+    "Portfolio Tobi Saputra (TobyG74) — software engineer yang membangun bot, API, dan aplikasi multi-platform.",
   keywords: ["Tobi Saputra", "TobyG74", "Software Engineer", "Full Stack", "Portfolio"],
   authors: [{ name: "Tobi Saputra" }],
   openGraph: {
     title: "Tobi Saputra",
-    description: "Portfolio futuristik Tobi Saputra (TobyG74) yang membangun bot, API, dan aplikasi multi-platform.",
+    description:
+      "Portfolio Tobi Saputra (TobyG74) — software engineer yang membangun bot, API, dan aplikasi multi-platform.",
     url: SITE_URL,
     siteName: "Tobi Saputra",
     images: [{ url: "/images/profile.jpg", width: 1200, height: 1200, alt: "Tobi Saputra" }],
@@ -48,19 +39,32 @@ export const metadata = {
 };
 
 export const viewport = {
-  themeColor: "#04060a",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#FBFBF9" },
+    { media: "(prefers-color-scheme: dark)", color: "#1C293C" },
+  ],
   width: "device-width",
   initialScale: 1,
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="id" className={`${display.variable} ${sora.variable} ${jetbrains.variable}`}>
-      <body className="bg-void font-body text-ghost antialiased selection:bg-aqua/30 selection:text-white">
-        <SceneMount />
-        <CursorFX />
+    <html
+      lang="id"
+      suppressHydrationWarning
+      className={`${inter.variable} ${jetbrains.variable}`}
+    >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{document.documentElement.classList.toggle("dark",localStorage.getItem("tobz-theme")==="dark")}catch(e){}`,
+          }}
+        />
+      </head>
+      <body className="bg-bg font-body text-fg antialiased selection:bg-fg selection:text-bg">
+        <a href="#main-content" className="skip-link">Langsung ke konten</a>
         <Navbar />
-        <main className="relative">{children}</main>
+        <main id="main-content" className="relative" tabIndex={-1}>{children}</main>
         <Footer />
         <VisitorCounter />
       </body>

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { ArrowUpRight, MessageSquareText } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import SectionHeading from "./SectionHeading";
 import Reveal from "./Reveal";
 
@@ -35,68 +35,76 @@ function initials(name = "") {
 export default function GuestbookPreview() {
   const [entries, setEntries] = useState([]);
   const [total, setTotal] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     fetch("/api/guestbook")
-      .then((r) => r.json())
+      .then((r) => {
+        if (!r.ok) throw new Error("Guestbook unavailable");
+        return r.json();
+      })
       .then((d) => {
         const list = Array.isArray(d.entries) ? d.entries : [];
         setTotal(list.length);
         setEntries([...list].sort((a, b) => entryTime(b) - entryTime(a)).slice(0, PREVIEW_COUNT));
       })
-      .catch(() => {});
+      .catch(() => setError(true))
+      .finally(() => setLoading(false));
   }, []);
 
   return (
-    <section id="guestbook" className="relative mx-auto max-w-5xl px-5 py-28 sm:px-8">
+    <>
       <SectionHeading
-        index="03"
+        index={5}
         eyebrow="Guestbook"
-        title="Kata mereka."
-        sub="Sebagian sapaan dari pengunjung. Mau ninggalin jejak juga? Mampir ke halaman guestbook."
+        title="Udah mampir? Tinggalin jejak."
+        sub="Sapaan, masukan, atau cerita dari orang-orang yang singgah di sini."
       />
 
-      <div className="grid gap-4 sm:grid-cols-3">
-        {entries.length === 0 ? (
-          <Reveal className="sm:col-span-3">
-            <div className="rounded-2xl glass-strong hairline p-6 text-sm text-ghost/60">
-              Belum ada pesan. Jadilah yang pertama! 👋
-            </div>
-          </Reveal>
+      <div className="guestbook-cards" aria-live="polite">
+        {loading ? (
+          <div className="guestbook-state">Memuat pesan guestbook...</div>
+        ) : error ? (
+          <div className="guestbook-state">Pesan belum bisa dimuat. Buka guestbook untuk mencoba lagi.</div>
+        ) : entries.length === 0 ? (
+          <div className="guestbook-state">
+            Belum ada pesan. Jadilah yang pertama.
+          </div>
         ) : (
           entries.map((e, i) => (
-            <Reveal key={`${e.createdAt ?? ""}-${i}`} delay={i * 0.08} className="h-full">
-              <div className="flex h-full flex-col rounded-2xl glass-strong hairline p-5 transition-colors hover:border-aqua/30">
-                <MessageSquareText size={18} className="mb-3 text-aqua/70" />
-                <p className="flex-1 break-words text-sm leading-relaxed text-ghost line-clamp-5">
-                  “{e.message}”
-                </p>
-                <div className="mt-4 flex items-center gap-3 border-t border-white/8 pt-4">
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-aqua/80 to-violet/80 font-display text-xs font-bold text-void">
+            <Reveal key={`${e.createdAt ?? ""}-${i}`} delay={i * 0.07} className="h-full">
+              <figure className="card flex h-full flex-col p-6">
+                <span aria-hidden="true" className="font-display text-2xl leading-none text-dim">&ldquo;</span>
+                <blockquote className="mt-3 flex-1 break-words text-sm leading-relaxed text-dim line-clamp-5">
+                  {e.message}
+                </blockquote>
+                <figcaption className="mt-6 flex items-center gap-3 border-t border-fg/10 pt-5">
+                  <span className="guestbook-avatar">
                     {initials(e.name)}
                   </span>
-                  <div className="min-w-0">
-                    <p className="truncate text-sm font-medium text-white">{e.name}</p>
-                    <p className="font-mono text-[0.62rem] text-ghost/40">{relativeTime(entryTime(e))}</p>
-                  </div>
-                </div>
-              </div>
+                  <span className="min-w-0">
+                    <span className="block truncate text-sm font-medium">{e.name}</span>
+                    <span className="block font-mono text-xs text-dim">
+                      {relativeTime(entryTime(e))}
+                    </span>
+                  </span>
+                </figcaption>
+              </figure>
             </Reveal>
           ))
         )}
       </div>
 
-      <Reveal delay={0.2}>
-        <div className="mt-8 flex justify-center">
-          <Link
-            href="/guestbook"
-            className="group inline-flex items-center gap-2 rounded-xl border border-aqua/40 bg-aqua/10 px-6 py-3.5 font-mono text-sm uppercase tracking-wider text-aqua transition-all hover:bg-aqua/20 hover:glow-aqua"
-          >
-            {total > PREVIEW_COUNT ? `Lihat semua ${total} pesan` : "Lihat & tulis pesan"}
-            <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-          </Link>
-        </div>
-      </Reveal>
-    </section>
+      <div className="mt-10">
+        <Link href="/guestbook" className="btn-ghost group">
+          {total > PREVIEW_COUNT ? `Lihat ${total} pesan` : "Tulis pesan"}
+          <ArrowUpRight
+            size={15}
+            className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+          />
+        </Link>
+      </div>
+    </>
   );
 }

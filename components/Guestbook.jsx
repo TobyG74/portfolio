@@ -37,6 +37,7 @@ function initials(name) {
 export default function Guestbook() {
   const [entries, setEntries] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState(false);
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
   const [submitting, setSubmitting] = useState(false);
@@ -44,9 +45,12 @@ export default function Guestbook() {
 
   useEffect(() => {
     fetch("/api/guestbook")
-      .then((r) => r.json())
+      .then((r) => {
+        if (!r.ok) throw new Error("Guestbook unavailable");
+        return r.json();
+      })
       .then((d) => setEntries(Array.isArray(d.entries) ? d.entries : []))
-      .catch(() => {})
+      .catch(() => setLoadError(true))
       .finally(() => setLoading(false));
   }, []);
 
@@ -66,7 +70,7 @@ export default function Guestbook() {
         setEntries((prev) => [data.entry, ...prev]);
         setName("");
         setMessage("");
-        setStatus({ type: "ok", text: "Pesan terkirim... makasih! ✨" });
+        setStatus({ type: "ok", text: "Pesan terkirim — makasih!" });
       } else {
         setStatus({ type: "err", text: data.error || "Gagal mengirim pesan." });
       }
@@ -78,9 +82,9 @@ export default function Guestbook() {
   }
 
   return (
-    <section className="relative mx-auto max-w-5xl px-5 pb-28 pt-32 sm:px-8">
+    <section className="guestbook-page relative mx-auto max-w-6xl px-5 pb-28 pt-36 sm:px-8">
       <SectionHeading
-        index="✦"
+        index={1}
         eyebrow="Guestbook"
         title="Tinggalkan jejak."
         sub="Sapa, kasih masukan, atau sekadar say hi. Satu pesan per pengunjung biar tetap rapi."
@@ -91,55 +95,57 @@ export default function Guestbook() {
         <Reveal>
           <form
             onSubmit={submit}
-            className="glass-strong hairline relative overflow-hidden rounded-2xl p-6 sm:p-7"
+            className="card relative overflow-hidden p-6 sm:p-8"
           >
-            <div className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-violet/15 blur-2xl" />
-
-            <label className="mb-2 block font-mono text-[0.66rem] uppercase tracking-wider text-ghost/60">
-              Nama <span className="text-ghost/40">(opsional)</span>
+            <label htmlFor="guest-name" className="eyebrow mb-2 block">
+              Nama <span className="text-dim">(opsional)</span>
             </label>
             <input
+              id="guest-name"
+              autoComplete="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
               maxLength={40}
               placeholder="Anonymous"
-              className="mb-5 w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white outline-none transition-colors placeholder:text-ghost/40 focus:border-aqua/50"
+              className="mb-6 w-full bg-card px-4 py-3 text-sm"
             />
 
             <div className="mb-2 flex items-center justify-between">
-              <label className="block font-mono text-[0.66rem] uppercase tracking-wider text-ghost/60">
-                Pesan
-              </label>
-              <span className="font-mono text-[0.66rem] text-ghost/40">
+              <label htmlFor="guest-message" className="eyebrow block">Pesan</label>
+              <span id="message-limit" className="font-mono text-xs text-dim">
                 {message.length}/{MAX_MESSAGE}
               </span>
             </div>
             <textarea
+              id="guest-message"
+              aria-describedby="message-limit"
+              maxLength={MAX_MESSAGE}
               value={message}
               onChange={(e) => setMessage(e.target.value.slice(0, MAX_MESSAGE))}
               rows={4}
               required
-              placeholder="Tulis sesuatu yang keren…"
-              className="w-full resize-none rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white outline-none transition-colors placeholder:text-ghost/40 focus:border-aqua/50"
+              placeholder="Tulis sapaan atau masukan lo di sini..."
+              className="w-full resize-y bg-card px-4 py-3 text-sm"
             />
 
             <button
               type="submit"
               disabled={submitting || !message.trim()}
-              className="group mt-5 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-aqua px-6 py-3.5 font-mono text-sm font-medium uppercase tracking-wider text-void transition-all hover:glow-aqua disabled:cursor-not-allowed disabled:opacity-40"
+              className="btn mt-6 w-full justify-center"
             >
-              {submitting ? <Loader2 size={18} className="animate-spin" /> : <Send size={16} />}
+              {submitting ? <Loader2 size={15} className="animate-spin" /> : <Send size={14} />}
               {submitting ? "Mengirim…" : "Kirim pesan"}
             </button>
 
             <AnimatePresence>
               {status && (
                 <motion.p
+                  role="status"
                   initial={{ opacity: 0, y: 6 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0 }}
                   className={`mt-4 text-center text-sm ${
-                    status.type === "ok" ? "text-aqua" : "text-rose-300"
+                    status.type === "ok" ? "status-ok" : "status-error"
                   }`}
                 >
                   {status.text}
@@ -152,18 +158,22 @@ export default function Guestbook() {
         {/* ---- feed ---- */}
         <Reveal delay={0.1}>
           <div className="space-y-3">
-            <div className="mb-1 flex items-center justify-between font-mono text-[0.66rem] uppercase tracking-wider text-ghost/50">
-              <span>Recent messages</span>
-              <span className="text-aqua">{entries.length}</span>
+            <div className="mb-1 flex items-center justify-between">
+              <span className="eyebrow">Recent messages</span>
+              <span className="font-mono text-xs">{entries.length}</span>
             </div>
 
             {loading ? (
-              <div className="flex items-center gap-2 rounded-2xl glass-strong hairline p-6 text-sm text-ghost/60">
+              <div className="card flex items-center gap-2 p-6 text-sm text-dim">
                 <Loader2 size={16} className="animate-spin" /> Memuat pesan…
               </div>
+            ) : loadError ? (
+              <div className="card p-6 text-sm text-dim" role="status">
+                Pesan belum bisa dimuat. <button type="button" onClick={() => window.location.reload()} className="underline underline-offset-4">Coba lagi</button>.
+              </div>
             ) : entries.length === 0 ? (
-              <div className="rounded-2xl glass-strong hairline p-6 text-sm text-ghost/60">
-                Belum ada pesan. Jadilah yang pertama! 👋
+              <div className="card p-6 text-sm text-dim">
+                Belum ada pesan. Jadilah yang pertama.
               </div>
             ) : (
               <div className="max-h-[34rem] space-y-3 overflow-y-auto pr-1">
@@ -176,19 +186,19 @@ export default function Guestbook() {
                       layout
                       initial={{ opacity: 0, y: 12, scale: 0.98 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
-                      className="group flex gap-3 rounded-2xl glass-strong hairline p-4 transition-colors hover:border-aqua/30"
+                      className="card group flex gap-4 p-6"
                     >
-                      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-aqua/80 to-violet/80 font-display text-sm font-bold text-void">
+                      <span className="guestbook-avatar">
                         {initials(e.name)}
                       </span>
                       <div className="min-w-0">
                         <div className="flex items-baseline gap-2">
-                          <span className="truncate font-medium text-white">{e.name}</span>
-                          <span className="shrink-0 font-mono text-[0.64rem] text-ghost/40">
+                          <span className="truncate font-medium">{e.name}</span>
+                          <span className="shrink-0 font-mono text-xs text-dim">
                             {relativeTime(entryTime(e))}
                           </span>
                         </div>
-                        <p className="mt-1 break-words text-sm leading-relaxed text-ghost">
+                        <p className="mt-2 break-words text-sm leading-relaxed text-dim">
                           {e.message}
                         </p>
                       </div>

@@ -1,27 +1,14 @@
-"use client";
-
-import Reveal from "./Reveal";
-
-export default function SectionHeading({ index, eyebrow, title, sub }) {
+export default function SectionHeading({ index, eyebrow, title, sub, part, parts }) {
   return (
-    <div className="mb-12 max-w-3xl text-center lg:text-left mx-auto lg:mx-0">
-      <Reveal>
-        <div className="mb-4 flex items-center justify-center gap-3 lg:justify-start">
-          <span className="font-mono text-sm text-violet">{index}</span>
-          <span className="h-px w-10 bg-gradient-to-r from-aqua to-transparent" />
-          <span className="eyebrow">{eyebrow}</span>
-        </div>
-      </Reveal>
-      <Reveal delay={0.08}>
-        <h2 className="font-display text-4xl font-bold leading-tight text-white sm:text-5xl">
-          {title}
-        </h2>
-      </Reveal>
-      {sub && (
-        <Reveal delay={0.16}>
-          <p className="mt-4 text-base leading-relaxed text-ghost">{sub}</p>
-        </Reveal>
-      )}
+    <div className="section-heading">
+      <div className="section-rail">
+        <span className="section-number">{String(index).padStart(2, "0")}</span>
+        <span className="eyebrow">{eyebrow}</span>
+        <span className="section-rule" />
+        {parts > 1 && <span className="eyebrow">{part}/{parts}</span>}
+      </div>
+      <h2>{title}</h2>
+      {sub && <p>{sub}</p>}
     </div>
   );
 }

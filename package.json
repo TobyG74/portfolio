@@ -20,7 +20,8 @@
     "next": "^15.3.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "three": "^0.174.0"
+    "three": "^0.174.0",
+    "three-nebula": "^11.1.2"
   },
   "devDependencies": {
     "@opennextjs/cloudflare": "^1.19.11",

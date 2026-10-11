@@ -1,13 +1,13 @@
+import Link from "next/link";
+import { ArrowUp } from "lucide-react";
+
 export default function Footer() {
   return (
-    <footer className="relative mx-auto max-w-5xl px-5 pb-12 pt-4 sm:px-8">
-      <div className="flex flex-col items-center justify-between gap-4 border-t border-white/8 pt-8 sm:flex-row">
-        <p className="font-mono text-xs text-ghost/60">
-          © 2026 Tobi Saputra · Built with Next.js + Three.js
-        </p>
-        <p className="font-mono text-xs text-ghost/60">
-          Designed in the <span className="text-aqua">void</span> ◇ Jakarta, ID
-        </p>
+    <footer className="site-footer">
+      <div className="site-container footer-inner">
+        <Link href="/#home" className="footer-brand">tobz.</Link>
+        <p>© 2026 Tobi Saputra <span>Dibangun sambil ngoprek.</span></p>
+        <Link href="/#home" className="footer-top">Balik ke atas <ArrowUp size={17} aria-hidden="true" /></Link>
       </div>
     </footer>
   );

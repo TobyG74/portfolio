@@ -31,7 +31,7 @@ export default function TypedRoles({ roles = [] }) {
   return (
     <span>
       {text}
-      <span className="ml-0.5 inline-block w-[2px] animate-glow-pulse bg-aqua align-middle" style={{ height: "1.1em" }} />
+      <span aria-hidden="true" className="ml-0.5 inline-block w-[2px] animate-blink bg-fg align-middle" style={{ height: "1.1em" }} />
     </span>
   );
 }

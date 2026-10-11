@@ -5,6 +5,7 @@
 
 # next.js
 /.next/
+/.next-dev/
 /out/
 
 # production
@@ -20,11 +21,12 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
-.env
-.env*.local
+.env*
+!.env.example
 
 # vercel
 .vercel
+.impeccable/
 
 # cloudflare (workers / opennext / wrangler)
 .open-next/
@@ -37,3 +39,24 @@ cloudflare-env.d.ts
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# raw 3D asset packs (hundreds of MB of FBX/BLEND/OBJ source).
+# Only the files actually used are committed, under public/models/.
+/Animals_Pack/
+/Buildings_RTS/
+/FreePack_RPGClasses(RetroStyle)/
+/WindmillLevel/
+/MonstersPack_Ps1/
+/Lowpoly_swords/
+/Staff_pack/
+/Bow_pack/
+/EnvironomentPackV_2/
+/Environoment Pack V.1/
+
+# unused variants kept locally; exclude them from the published world assets
+/public/models/env/Grass.fbx
+/public/models/monsters/Bat01.png
+/public/models/monsters/EaterPlant01.png
+/public/models/monsters/Rat01.png
+/public/models/monsters/Spider01.png
+/public/models/monsters/Wasp01.png
