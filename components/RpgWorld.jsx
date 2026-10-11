@@ -4,7 +4,7 @@ import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "rea
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Html, Instance, Instances, Sky, useProgress } from "@react-three/drei";
+import { Html, Instance, Instances, useProgress } from "@react-three/drei";
 import * as THREE from "three";
 import Joystick from "./Joystick";
 import PortalParticles from "./PortalParticles";
@@ -12,6 +12,7 @@ import Monster from "./Monster";
 import RankBoard from "./RankBoard";
 import { Animal, angleTo, Building, Character, ModelField } from "./WorldModels";
 import Festival from "./Festival";
+import WorldLighting from "./WorldLighting";
 import { animals, gossips, houses, landmarks, npcs } from "@/lib/npcs";
 import {
   BIRTHDAY_GOSSIP,
@@ -1672,25 +1673,7 @@ export default function RpgWorld() {
         gl={{ antialias: quality.id === "high", powerPreference: "high-performance" }}
       >
         <Suspense fallback={null}>
-          <color attach="background" args={["#b8cdd0"]} />
-          <fog attach="fog" args={["#b8cdd0", quality.fog[0], quality.fog[1]]} />
-          <Sky sunPosition={[40, 35, -60]} turbidity={6} rayleigh={1.2} />
-
-          <ambientLight intensity={0.65} />
-          <hemisphereLight args={["#d6edff", "#526b39", 1.1]} />
-          <directionalLight
-            castShadow={quality.shadows}
-            position={[35, 45, -25]}
-            color="#ffe4b5"
-            intensity={2}
-            shadow-bias={-0.0002}
-            shadow-normalBias={0.04}
-            shadow-mapSize={[quality.shadowMap, quality.shadowMap]}
-            shadow-camera-left={-quality.shadowExtent}
-            shadow-camera-right={quality.shadowExtent}
-            shadow-camera-top={quality.shadowExtent}
-            shadow-camera-bottom={-quality.shadowExtent}
-          />
+          <WorldLighting quality={quality} playerPos={playerPos} />
 
           {/* ground + a lighter plaza disc so the play area reads as "here" */}
           <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow>

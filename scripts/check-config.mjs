@@ -47,7 +47,7 @@ assert.equal(resolveQuality(null).id, "high", "no window must not throw");
 
 // every tier must be complete, or a missing field renders as undefined
 for (const [name, q] of Object.entries(QUALITY)) {
-  for (const key of ["dpr", "shadows", "shadowMap", "shadowExtent", "scenery", "monsters", "particles", "fog"]) {
+  for (const key of ["dpr", "shadows", "shadowMap", "shadowExtent", "scenery", "monsters", "lights", "particles", "fog"]) {
     assert.ok(q[key] !== undefined, `tier ${name} is missing ${key}`);
   }
   assert.equal(q.dpr.length, 2, `tier ${name} dpr must be [min, max]`);
@@ -55,6 +55,7 @@ for (const [name, q] of Object.entries(QUALITY)) {
   assert.equal(q.fog.length, 2, `tier ${name} fog must be [near, far]`);
   assert.ok(q.fog[1] > q.fog[0], `tier ${name} fog is inverted`);
   assert.ok(q.monsters >= 1, `tier ${name} must spawn at least one monster`);
+  assert.ok(q.lights >= 1 && q.lights <= 8, `tier ${name} must limit active street lights`);
   assert.ok(q.scenery > 0 && q.scenery <= 1, `tier ${name} scenery must be a 0..1 factor`);
 }
 
@@ -66,6 +67,7 @@ for (let i = 1; i < order.length; i++) {
   assert.ok(lo.dpr[1] <= hi.dpr[1], "a lower tier must not render more pixels");
   assert.ok(lo.scenery < hi.scenery, "a lower tier must thin the scenery");
   assert.ok(lo.monsters < hi.monsters, "a lower tier must spawn fewer monsters");
+  assert.ok(lo.lights < hi.lights, "a lower tier must use fewer active street lights");
   assert.ok(lo.shadowMap <= hi.shadowMap, "a lower tier must not enlarge the shadow map");
   assert.ok(lo.fog[1] <= hi.fog[1], "a lower tier must not draw further");
 }

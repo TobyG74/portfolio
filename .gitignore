@@ -60,3 +60,5 @@ next-env.d.ts
 /public/models/monsters/Rat01.png
 /public/models/monsters/Spider01.png
 /public/models/monsters/Wasp01.png
+
+.dev.vars*
