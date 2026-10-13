@@ -6,17 +6,18 @@
       "label": "Programming Languages",
       "icon": "fa-solid fa-code",
       "items": [
-        { "name": "LUA", "icon": "fa-solid fa-lua" },
-        { "name": "PHP", "icon": "fa-brands fa-php" },
-        { "name": "JavaScript", "icon": "fa-brands fa-js" },
-        { "name": "TypeScript", "icon": "fa-solid fa-code" },
-        { "name": "Python", "icon": "fa-brands fa-python" },
-        { "name": "Go", "icon": "fa-solid fa-code" },
-        { "name": "C++", "icon": "fa-solid fa-code" },
-        { "name": "Java", "icon": "fa-brands fa-java" },
-        { "name": "Pascal", "icon": "fa-solid fa-code" },
-        { "name": "Dart", "icon": "fa-solid fa-code" },
-        { "name": "Nim", "icon": "fa-solid fa-code" }
+        { "name": "LUA", "icon": "/icons/skills/lua.svg" },
+        { "name": "PHP", "icon": "/icons/skills/php.svg" },
+        { "name": "JavaScript", "icon": "/icons/skills/javascript.svg" },
+        { "name": "TypeScript", "icon": "/icons/skills/typescript.svg" },
+        { "name": "Python", "icon": "/icons/skills/python.svg" },
+        { "name": "Go", "icon": "/icons/skills/go.svg" },
+        { "name": "C++", "icon": "/icons/skills/cplusplus.svg" },
+        { "name": "Java", "icon": "/icons/skills/java.svg" },
+        { "name": "Pascal", "icon": "code" },
+        { "name": "Dart", "icon": "/icons/skills/dart.svg" },
+        { "name": "Nim", "icon": "/icons/skills/nim.svg" },
+        { "name": "Rust", "icon": "/icons/skills/rust.svg" }
       ]
     },
     {
@@ -24,13 +25,13 @@
       "label": "Web Development",
       "icon": "fa-solid fa-globe",
       "items": [
-        { "name": "HTML5", "icon": "fa-brands fa-html5" },
-        { "name": "CSS3", "icon": "fa-brands fa-css3-alt" },
-        { "name": "React", "icon": "fa-brands fa-react" },
-        { "name": "Next.js", "icon": "fa-solid fa-layer-group" },
-        { "name": "Node.js", "icon": "fa-brands fa-node-js" },
-        { "name": "Bootstrap", "icon": "fa-brands fa-bootstrap" },
-        { "name": "Tailwind CSS", "icon": "fa-solid fa-wind" }
+        { "name": "HTML5", "icon": "/icons/skills/html5.svg" },
+        { "name": "CSS3", "icon": "/icons/skills/css3.svg" },
+        { "name": "React", "icon": "/icons/skills/react.svg" },
+        { "name": "Next.js", "icon": "/icons/skills/nextjs.svg" },
+        { "name": "Node.js", "icon": "/icons/skills/nodejs.svg" },
+        { "name": "Bootstrap", "icon": "/icons/skills/bootstrap.svg" },
+        { "name": "Tailwind CSS", "icon": "/icons/skills/tailwindcss.svg" }
       ]
     },
     {
@@ -38,8 +39,8 @@
       "label": "Mobile Development",
       "icon": "fa-solid fa-mobile-screen-button",
       "items": [
-        { "name": "Flutter", "icon": "fa-solid fa-mobile-screen-button" },
-        { "name": "React Native", "icon": "fa-brands fa-react" }
+        { "name": "Flutter", "icon": "/icons/skills/flutter.svg" },
+        { "name": "React Native", "icon": "/icons/skills/react.svg" }
       ]
     },
     {
@@ -47,10 +48,10 @@
       "label": "Databases",
       "icon": "fa-solid fa-database",
       "items": [
-        { "name": "MongoDB", "icon": "fa-solid fa-database" },
-        { "name": "SQLite", "icon": "fa-solid fa-database" },
-        { "name": "MySQL", "icon": "fa-solid fa-database" },
-        { "name": "PostgreSQL", "icon": "fa-solid fa-database" }
+        { "name": "MongoDB", "icon": "/icons/skills/mongodb.svg" },
+        { "name": "SQLite", "icon": "/icons/skills/sqlite.svg" },
+        { "name": "MySQL", "icon": "/icons/skills/mysql.svg" },
+        { "name": "PostgreSQL", "icon": "/icons/skills/postgresql.svg" }
       ]
     },
     {
@@ -58,13 +59,13 @@
       "label": "Tools & Platforms",
       "icon": "fa-solid fa-screwdriver-wrench",
       "items": [
-        { "name": "Git", "icon": "fa-brands fa-git-alt" },
-        { "name": "GitHub", "icon": "fa-brands fa-github" },
-        { "name": "NPM", "icon": "fa-brands fa-npm" },
-        { "name": "Docker", "icon": "fa-brands fa-docker" },
-        { "name": "Nodemon", "icon": "fa-solid fa-terminal" },
-        { "name": "PM2", "icon": "fa-solid fa-server" },
-        { "name": "Prisma", "icon": "fa-solid fa-cubes" }
+        { "name": "Git", "icon": "/icons/skills/git.svg" },
+        { "name": "GitHub", "icon": "/icons/skills/github.svg" },
+        { "name": "NPM", "icon": "/icons/skills/npm.svg" },
+        { "name": "Docker", "icon": "/icons/skills/docker.svg" },
+        { "name": "Nodemon", "icon": "/icons/skills/nodemon.svg" },
+        { "name": "PM2", "icon": "/icons/skills/pm2.svg" },
+        { "name": "Prisma", "icon": "/icons/skills/prisma.svg" }
       ]
     },
     {
@@ -72,10 +73,10 @@
       "label": "Code Editors & IDEs",
       "icon": "fa-solid fa-laptop-code",
       "items": [
-        { "name": "JetBrains", "icon": "fa-solid fa-laptop-code" },
-        { "name": "Sublime", "icon": "fa-solid fa-file-code" },
-        { "name": "VS Code", "icon": "fa-solid fa-code" },
-        { "name": "Android Studio", "icon": "fa-brands fa-android" }
+        { "name": "JetBrains", "icon": "/icons/skills/jetbrains.svg" },
+        { "name": "Sublime", "icon": "file-code" },
+        { "name": "VS Code", "icon": "/icons/skills/vscode.svg" },
+        { "name": "Android Studio", "icon": "/icons/skills/androidstudio.svg" }
       ]
     },
     {
@@ -83,8 +84,8 @@
       "label": "Operating Systems",
       "icon": "fa-solid fa-desktop",
       "items": [
-        { "name": "Windows", "icon": "fa-brands fa-windows" },
-        { "name": "Arch Linux", "icon": "fa-brands fa-linux" }
+        { "name": "Windows", "icon": "/icons/skills/windows11.svg" },
+        { "name": "Arch Linux", "icon": "/icons/skills/archlinux.svg" }
       ]
     }
   ]

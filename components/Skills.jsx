@@ -1,4 +1,5 @@
-import { Code2, Globe, Smartphone, Database, Wrench, SquareCode, MonitorCog } from "lucide-react";
+import Image from "next/image";
+import { Code2, FileCode2, Globe, Smartphone, Database, Wrench, SquareCode, MonitorCog } from "lucide-react";
 import SectionHeading from "./SectionHeading";
 
 const ICONS = {
@@ -22,7 +23,18 @@ export default function Skills({ items, offset = 0, part, parts }) {
             <div key={category.id} className="skill-row">
               <span className="skill-index">{String(offset + index + 1).padStart(2, "0")}</span>
               <h3><Icon size={21} strokeWidth={2.25} aria-hidden="true" />{category.label}</h3>
-              <ul>{category.items.map((item) => <li key={item.name} className="chip">{item.name}</li>)}</ul>
+              <ul>{category.items.map((item) => (
+                <li key={item.name} className="chip">
+                  {item.icon?.startsWith("/") ? (
+                    <Image src={item.icon} alt="" aria-hidden="true" width={20} height={20} className="skill-icon" unoptimized />
+                  ) : item.icon === "file-code" ? (
+                    <FileCode2 size={20} aria-hidden="true" />
+                  ) : (
+                    <Code2 size={20} aria-hidden="true" />
+                  )}
+                  {item.name}
+                </li>
+              ))}</ul>
             </div>
           );
         })}

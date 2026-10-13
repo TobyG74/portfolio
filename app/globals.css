@@ -159,6 +159,9 @@ body { position: relative; width: 100%; background: rgb(var(--bg)); color: rgb(v
 .skill-row h3 { display: flex; align-items: center; gap: var(--space-3); font-size: var(--text-sm); font-weight: 800; padding-top: var(--space-1); }
 .skill-row h3 svg { flex-shrink: 0; }
 .skill-row ul { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.skill-row .chip { gap: var(--space-2); }
+.skill-row .chip svg { flex-shrink: 0; }
+.skill-icon { width: 20px; height: 20px; flex-shrink: 0; object-fit: contain; padding: 2px; border-radius: 2px; background: #fff; }
 
 .projects-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-8); }
 .project-card { display: flex; flex-direction: column; min-width: 0; background: rgb(var(--card)); border: 3px solid #000; border-radius: 4px; box-shadow: 4px 4px 0 #000, 0 0 0 1px var(--edge); transition: transform 150ms, box-shadow 150ms; }

@@ -78,5 +78,13 @@
     "image": "public/images/project-web2app.png",
     "link": "https://github.com/TobyG74/Web2App",
     "tags": ["PWA", "Web App", "Mobile"]
+  },
+  {
+    "id": 11,
+    "title": "WhatsApp Bot (Rust)",
+    "description": "Bot WhatsApp berbasis Rust dengan dashboard web, pengiriman pesan terjadwal, dan fitur bikin stiker. Data bisa disimpan di SQLite, PostgreSQL, atau MongoDB, jadi bot bisa dijalankan lokal maupun di server.",
+    "image": "public/images/project-whatsapp-bot.png",
+    "link": "https://github.com/TobyG74/whatsapp-bot/",
+    "tags": ["WhatsApp Bot", "Rust", "Axum"]
   }
 ]
